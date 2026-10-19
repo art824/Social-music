@@ -47,3 +47,10 @@ Free steps meanwhile: album-art coverage test, enclosure model with placeholder 
 
 ## Later (Brazil, from January)
 Sebraetec, SENAI Laboratorio Aberto (BH), MEI registration; investors only after a working prototype and real unit economics.
+
+## Update 21/10/2026: sizes, power, markets
+- Two sizes under consideration (founder): a small ~3 cm pin (dev-board class screens are about 28 mm wide), and a main ~5 cm product that also shows the song name. Not decided.
+- A 2.8" portrait 480x640 panel is about 43 x 57 mm: a ~43 mm square cover plus a ~14 mm text strip. Closest found to the ~5 cm idea (verify the exact module before buying). The 2.8" 480x480 Waveshare board is round (about 71 mm across), too big.
+- Battery (open): rough arithmetic (not measured) gives about 2-4 h on a 400 mAh cell with an unoptimized dev board. A shipping product of this class (Divoom Emodo, 1.8") claims 8 h+. All-day wear needs optimization and/or a bigger battery, which means a thicker badge.
+- Charging (open): USB-C (simple, adds a port), magnetic contacts (minimalist, needs custom cable/dock), wireless (coil adds thickness and cost).
+- Markets (open): US is ~58-60% iPhone (web traffic), Brazil ~75-81% Android. Founder sees the US as a better-paying main market. Implication: iPhone first for the US, Android first for Brazil. Radio-emitting products need per-market certification (unverified specifics).
