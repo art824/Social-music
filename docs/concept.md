@@ -75,3 +75,6 @@ Sebraetec, SENAI Laboratorio Aberto (BH), MEI registration; investors only after
 - Curated lists found: mlightcad/awesome-cad, ad-si/awesome-3d-printing, cmccomb/awesome-cad-cae, elasticdotventures/awesome-openscad (read via search snippets only).
 - Community "MCP" bridges let Claude drive CAD tools (build123d-mcp, OpenSCAD MCP, FreeCAD MCP); third-party and unaudited.
 - Open: founder's own computer/OS, 3D printer access, how much he wants to edit himself.
+
+## Update 24/10/2026: modeling decision
+Founder: Claude does the practical 3D modeling; founder does not need hands-on access. Claude uses build123d (already installed in the sandbox) and keeps the cad/ placeholder files. Real models wait until a display and board are chosen.
