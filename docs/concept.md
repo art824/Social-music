@@ -54,3 +54,11 @@ Sebraetec, SENAI Laboratorio Aberto (BH), MEI registration; investors only after
 - Battery (open): rough arithmetic (not measured) gives about 2-4 h on a 400 mAh cell with an unoptimized dev board. A shipping product of this class (Divoom Emodo, 1.8") claims 8 h+. All-day wear needs optimization and/or a bigger battery, which means a thicker badge.
 - Charging (open): USB-C (simple, adds a port), magnetic contacts (minimalist, needs custom cable/dock), wireless (coil adds thickness and cost).
 - Markets (open): US is ~58-60% iPhone (web traffic), Brazil ~75-81% Android. Founder sees the US as a better-paying main market. Implication: iPhone first for the US, Android first for Brazil. Radio-emitting products need per-market certification (unverified specifics).
+
+## Update 22/10/2026: art coverage test and e-ink vs LCD
+- Album-art coverage (18 albums, mainstream to underground, run 22/10): iTunes 16/18, Deezer 16/18, Cover Art Archive 17/18, at least one source found 17/18. The miss was Matuê "30PRAUM" (possibly a title/spelling issue). "Found" means a result was returned, not that the right edition was verified. iTunes returned HTTP 403 when queried quickly (rate limit), so retries are needed.
+- Color e-ink: Spectra 6 (6 colors) full refresh about 19 s with flashing and no partial refresh (4" Waveshare panel, manufacturer figure; a retailer says 10 s). No small Kaleido 3 modules found (7.8" and up only). A 4" Spectra 6 panel is about 85 x 56 mm.
+- Panel-only price: 4" Spectra 6 about $38-47 (panel only, needs a driver board), vs. a whole 1.69" ESP32 LCD board at $16-22.
+- Simulation (approximate, Claude-built): Spectra 6 dithers photographic covers heavily and mutes colors; graphic/text covers survive. Not a photo of a real panel.
+- Charging: USB-C cheapest and easiest; Qi the most complex and costly; magnetic pogo in between but needs custom tooling. Component-level prices are weak supplier claims.
+- Open: LCD for the prototype and e-ink later, or buy a small e-ink panel early to test the refresh feel.

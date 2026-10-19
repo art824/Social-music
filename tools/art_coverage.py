@@ -57,10 +57,15 @@ print(f"{'album':52}{'group':20}" + "".join(f"{n:17}" for n in sources))
 for artist, album, group in ALBUMS:
     row = f"{(artist + ' - ' + album)[:50]:52}{group:20}"
     for n, fn in sources.items():
-        try:
-            ok = fn(artist, album)
-        except Exception as e:
-            ok = None
+        ok = None
+        for attempt in range(3):
+            try:
+                ok = fn(artist, album)
+                break
+            except Exception as e:
+                err = str(e)
+                time.sleep(3 * (attempt + 1))
+        time.sleep(1.5)
         hits[n] += bool(ok)
         row += f"{'ERR' if ok is None else ('yes' if ok else 'NO'):17}"
     print(row)
