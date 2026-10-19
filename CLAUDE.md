@@ -6,3 +6,4 @@
 - Keep docs/concept.md current: record decisions the founder states, open questions, and verified vs unverified facts.
 - Product principle: minimalist, display-only (one grip, one button, one light). Challenge anything that adds layers.
 - Whenever comparing hardware, prices or specs for the founder: first say in plain words what each thing is, why it costs what it costs, and whether it is worth it for this product. Assume no hardware background. State which numbers are sourced and which are estimates.
+- Do only what was asked. Do not build models, code or files the founder did not request; answer the question, then offer.

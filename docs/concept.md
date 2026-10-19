@@ -67,3 +67,11 @@ Sebraetec, SENAI Laboratorio Aberto (BH), MEI registration; investors only after
 - Tools verified working in the Claude sandbox: build123d 0.13 (Python code-based CAD, installed via pip) and OpenSCAD 2021.01 (apt). Live GitHub popularity numbers were not checked (repos outside this session's scope).
 - First model: cad/badge.py (front shell + back plate with two strap slots, button hole, LED hole). All dimensions are PLACEHOLDERS; the 28 x 33 mm window is derived from a 1.69" 240x280 panel diagonal (verify on datasheet). Outputs: cad/out/*.stl and preview.png. Not yet test-fitted to any real board.
 - The grip mechanism is undecided; the strap slots only stand in for it.
+
+## Update 24/10/2026: 3D software options (no decision yet)
+- Founder asked for software options, not a model; the cad/ files are an unrequested workflow test and can be deleted on request.
+- Runnable by Claude in the cloud sandbox (verified): build123d, OpenSCAD. Installable but not run: CadQuery. In the sandbox package list but untested: SolveSpace, PrusaSlicer, Blender. FreeCAD was not in the sandbox package list.
+- Only build123d exports STEP (editable solids in FreeCAD/Fusion/Onshape); OpenSCAD exports meshes only.
+- Curated lists found: mlightcad/awesome-cad, ad-si/awesome-3d-printing, cmccomb/awesome-cad-cae, elasticdotventures/awesome-openscad (read via search snippets only).
+- Community "MCP" bridges let Claude drive CAD tools (build123d-mcp, OpenSCAD MCP, FreeCAD MCP); third-party and unaudited.
+- Open: founder's own computer/OS, 3D printer access, how much he wants to edit himself.
