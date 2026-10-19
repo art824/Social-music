@@ -10,14 +10,14 @@ A small wearable display that shows the album art of what you are listening to, 
 2. Assumption "mainstream people don't care" is doubtful. Fandoms (idol, Swiftie, anime) are very expressive buyers. Test fandom as a segment.
 3. Niche-taste buyers may prefer analog objects. Screen vs. aesthetic is untested for wearables (Tuneshine sells at $199, but as a desk object).
 
-## Getting the content (decided)
+## Getting the content (provisional, Claude recommendation, not yet validated)
 - Text (title, artist, album): system-level now-playing, source-agnostic, no streaming-service API.
   - iPhone: Apple Media Service (AMS) over Bluetooth LE. Public spec, working ESP32 examples (Adafruit, Moddable, ctrl01, MusicStation).
   - Android: notification listener plus media session metadata.
 - Album art: AMS carries no image, so look it up by artist and album (prototype: iTunes Search API, fallback MusicBrainz Cover Art Archive). Android can often take art from the player directly.
 - Open business risks: art-source terms for a commercial product (iTunes terms are gray); whether AMS needs Apple approval at commercial scale (unconfirmed).
 
-## Form factor (decided for v0)
+## Form factor (provisional, open for the founder to decide)
 - Pin/clip badge for bag strap, jacket, collar or lanyard; headphone-band mount as an accessory. The Bluetooth link goes to the phone, so the badge does not depend on headphones.
 - Square color LCD (~1.5", 240x240), album art only; caption toggle later. E-ink is a later question.
 
