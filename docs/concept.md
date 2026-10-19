@@ -62,3 +62,8 @@ Sebraetec, SENAI Laboratorio Aberto (BH), MEI registration; investors only after
 - Simulation (approximate, Claude-built): Spectra 6 dithers photographic covers heavily and mutes colors; graphic/text covers survive. Not a photo of a real panel.
 - Charging: USB-C cheapest and easiest; Qi the most complex and costly; magnetic pogo in between but needs custom tooling. Component-level prices are weak supplier claims.
 - Open: LCD for the prototype and e-ink later, or buy a small e-ink panel early to test the refresh feel.
+
+## Update 23/10/2026: 3D modeling setup
+- Tools verified working in the Claude sandbox: build123d 0.13 (Python code-based CAD, installed via pip) and OpenSCAD 2021.01 (apt). Live GitHub popularity numbers were not checked (repos outside this session's scope).
+- First model: cad/badge.py (front shell + back plate with two strap slots, button hole, LED hole). All dimensions are PLACEHOLDERS; the 28 x 33 mm window is derived from a 1.69" 240x280 panel diagonal (verify on datasheet). Outputs: cad/out/*.stl and preview.png. Not yet test-fitted to any real board.
+- The grip mechanism is undecided; the strap slots only stand in for it.
