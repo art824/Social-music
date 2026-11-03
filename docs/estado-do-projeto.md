@@ -12,10 +12,11 @@ Seguir só com testes baratos e com data para parar: **31/03/2027**. Seguir se, 
 - Produto só de exibição: um grampo, um botão, uma luz; sem touchscreen.
 - Três modos pelo botão: Tocando agora / Favorito / terceiro a definir. Luz acesa só em "tocando agora".
 - iPhone e Android. Claude escreve o código e faz a modelagem 3D (build123d); o fundador quer entender o que acontece.
-- Mercado: EUA primeiro, Brasil depois. Relatórios em português. Pesquisa de mercado profunda.
+- Mercado: EUA primeiro, Brasil depois (DECISÃO REABERTA pelo fundador em 03/11/2026 até o estudo). Relatórios em português. Pesquisa de mercado profunda.
 - Tamanhos em estudo: pin de ~3 cm e produto principal de ~5 cm com o nome da música.
 - Não comprar hardware ainda. Nenhuma placa escolhida.
-- Vai construir em público (Instagram/TikTok) com amigos de marketing.
+- Vai construir em público (Instagram/TikTok) com amigos de marketing, documentando tentativas e erros.
+- Protótipo primeiro (03/11/2026): ele constrói e usa o próprio protótipo todo dia. Sem entrevistas e sem teste com badge comprado. Tem convicção no produto e no nicho. Risco que o Claude apontou: a convicção de uma pessoa não mede se outros querem; os depósitos (condição b da porta) medem sem entrevista.
 
 ## Ideias do fundador ainda NÃO decididas
 - Formato colar/pendente (em vez de grampo). Testar com o mesmo badge barato num cordão.
@@ -37,10 +38,11 @@ Seguir só com testes baratos e com data para parar: **31/03/2027**. Seguir se, 
 - Patente, desenho industrial e marca (só depois de existir desenho concreto).
 - Versão para o Brasil (Anatel, importação).
 
-## Próximos 3 passos (não mais que isso)
-1. Comprar um badge manual barato (até €50), usar 2 semanas com 3 pessoas, anotando dias usados e tempo em capa atual contra favorita; testar também no cordão.
-2. Fazer as 5 primeiras entrevistas com o roteiro revisado (metade fora de grupos de vinil).
-3. Escrever o memo de rota (meia página): plataforma de pré-venda, entidade, responsável FCC nos EUA, fonte dos US$18 mil. Inclui perguntar ao suporte do Kickstarter se a residência na França do fundador vale.
+## Próximos passos (não mais que 3)
+1. Estudo EUA contra Brasil (pedido do fundador em 03/11/2026, em andamento): regras, hardware, distribuição, impostos, estrutura legal, demanda e idioma do conteúdo. Saída: ventures/social-music/07-eua-vs-brasil/. Decide idioma do conteúdo, plataforma de crowdfunding e entidade. A decisão é dele.
+2. Planejar o protótipo (só depois do estudo; não desenvolver agora).
+3. Mensagem direta ao Sebrae (ele envia).
+Cancelados por decisão do fundador: 5 entrevistas e teste do badge comprado. A condição (a) da porta de 31/03/2027 falava de badge manual e precisa ser reescrita para o protótipo.
 
 ## Onde está cada coisa
 | O quê | Arquivo |
