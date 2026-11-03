@@ -17,7 +17,7 @@
 | Market research (`/venture:market-research`) | done 2026-11-03 | 02-market/market-research-2026-11-03.md | 2026-11-03 |
 | Competitor analysis (`/venture:competitors`) | done 2026-11-03 | 03-competitors/competitive-analysis-2026-11-03.md | 2026-11-03 |
 | PMF assessment (`/venture:pmf`) | done 2026-11-03 (Mode A: plano; PMF não mensurável) | 04-pmf/pmf-measurement-plan-2026-11-03.md | 2026-11-03 |
-| GTM strategy (`/venture:gtm`) | not started | — | — |
+| GTM strategy (`/venture:gtm`) | done 2026-11-03 (validação, hipóteses) | 05-gtm/gtm-strategy-2026-11-03.md | 2026-11-03 |
 | Business model (`/venture:model`) | done 2026-11-03 | 06-model/business-model-2026-11-03.md | 2026-11-03 |
 | Venture review (`/venture:review`) | not started | — | — |
 
@@ -58,6 +58,9 @@
 - [model, 2026-11-03] Variável mais sensível: preço (±20% → ±US$12,71/un). Ao preço do Emodo (US$49,99), lucro bruto ~US$7/un.
 - [model, 2026-11-03] Kill numbers: preço máximo aceito ≤ ~US$50 → nunca se paga com anúncio; CAC > ~US$25 a US$69 → venda direta destrói caixa.
 - [model, 2026-11-03] Projeção 18 meses (com crowdfunding no mês 8): base termina em −US$21 mil e não empata; otimista termina em +US$150 mil. Custos fixos únicos ~US$18 mil; equilíbrio 727 un. no base.
+- [gtm, 2026-11-03] Posicionamento (hipótese): "music badge" que mostra sozinho o álbum que você está ouvindo; promessa "Wear what you're playing." Unlike merch/badges manuais.
+- [gtm, 2026-11-03] Canais: vídeo curto orgânico + comunidades de música → lista de espera; microcriadores como experimento; sem anúncio pago até CAC medido < US$15.
+- [gtm, 2026-11-03] Preço inicial hipótese US$79; teste A/B US$59 vs US$79 com depósito reembolsável de US$5; meta 300 inscritos e ≥10% de depósito; revisão 30 dias após abrir a lista.
 
 ## Open questions & riskiest assumptions
 
@@ -76,6 +79,8 @@
 - [ ] O curador paga ≥ ~US$79 (acima do Emodo, US$49,99) por capa automática + design — testar com perguntas de gasto nas entrevistas e página de pré-venda com preço (adicionado por model).
 - [ ] É possível conquistar clientes a CAC ≤ ~US$12–15 por comunidades e crowdfunding — testar no gtm com experimentos de canal (adicionado por model).
 - [ ] BOM ≤ ~US$16–22 em ~1.000 unidades — pedir orçamento a 2–3 fornecedores (adicionado por model).
+
+- [ ] Vídeos curtos do badge mudando sozinho geram inscrições sem mídia paga (≥2% de visitantes; ≥100 inscritos em 30 dias) — testar com 10 vídeos (adicionado por gtm).
 
 ## Decision log
 
