@@ -16,7 +16,7 @@
 | Customer discovery (`/venture:customers`) | in progress (guia pronto; 0 entrevistas) | 01-discovery/interview-guide-2026-11-03.md | 2026-11-03 |
 | Market research (`/venture:market-research`) | done 2026-11-03 | 02-market/market-research-2026-11-03.md | 2026-11-03 |
 | Competitor analysis (`/venture:competitors`) | not started | — | — |
-| PMF assessment (`/venture:pmf`) | not started | — | — |
+| PMF assessment (`/venture:pmf`) | done 2026-11-03 (Mode A: plano; PMF não mensurável) | 04-pmf/pmf-measurement-plan-2026-11-03.md | 2026-11-03 |
 | GTM strategy (`/venture:gtm`) | not started | — | — |
 | Business model (`/venture:model`) | not started | — | — |
 | Venture review (`/venture:review`) | not started | — | — |
@@ -46,6 +46,8 @@
 - [market-research, 2026-11-03] Segmento de entrada recomendado (decisão do fundador): "curadores" de gosto variado nos EUA, 18–29; fandoms como segundo teste.
 
 - [customers, 2026-11-03] Modo A concluído: hipótese de ICP e roteiro Mom Test (em inglês, para clientes nos EUA). Nenhuma entrevista feita ainda — nenhuma suposição validada. (próprio, high)
+
+- [pmf, 2026-11-03] PMF não mensurável: 0 usuários. Plano: Sean Ellis com ≥30–40 testadores, dias usados por semana como retenção, % do tempo em cada modo; decisão 8 semanas após o 1º lote de protótipos. (próprio, high)
 
 ## Open questions & riskiest assumptions
 
