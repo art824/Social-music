@@ -1,0 +1,674 @@
+<title>Social Music Venture</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: relatório em coluna única de leitura, com blocos de dados largos; seções numeradas pela ordem real do processo do plugin */
+:root{
+  --bg:#F2F4F8; --surface:#FFFFFF; --surface2:#E8ECF3; --fg:#111827; --muted:#566074; --line:#D3D9E4;
+  --accent:#2F55FF; --accent-soft:#E3E9FF;
+  --good:#117A4C; --good-soft:#DDF3E7; --warn:#935500; --warn-soft:#FFEFCF; --bad:#B42323; --bad-soft:#FDE3E3;
+  --f-display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+  --f-body:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0E131B; --surface:#161C27; --surface2:#1E2633; --fg:#E7ECF4; --muted:#9AA6BA; --line:#2B3547;
+  --accent:#8CA2FF; --accent-soft:#222C57;
+  --good:#4BD08F; --good-soft:#12301F; --warn:#F2B14A; --warn-soft:#3A2A0C; --bad:#FF8484; --bad-soft:#3F1717; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E131B; --surface:#161C27; --surface2:#1E2633; --fg:#E7ECF4; --muted:#9AA6BA; --line:#2B3547;
+  --accent:#8CA2FF; --accent-soft:#222C57;
+  --good:#4BD08F; --good-soft:#12301F; --warn:#F2B14A; --warn-soft:#3A2A0C; --bad:#FF8484; --bad-soft:#3F1717; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.6;
+  padding-block:0 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+.wrap{max-width:1040px;margin:0 auto}
+h1,h2,h3,h4{font-family:var(--f-display);line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:800;letter-spacing:-.02em}
+h2{font-size:clamp(1.5rem,3vw,2rem);font-weight:700;letter-spacing:-.01em}
+h3{font-size:1.15rem;font-weight:700}
+h4{font-size:.8rem;font-weight:600;font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+p{margin:0 0 .8em;max-width:68ch}
+a{color:var(--accent)}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.mono{font-family:var(--f-mono)}
+ul{margin:.3em 0 .9em;padding-left:1.2em} li{margin:.25em 0;max-width:72ch}
+/* nav */
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line);margin:0 calc(-1*max(16px,env(safe-area-inset-left,0px)));padding:8px max(16px,env(safe-area-inset-left,0px))}
+nav ul{display:flex;gap:6px;list-style:none;margin:0;padding:0;overflow-x:auto;scrollbar-width:thin}
+nav a{display:block;white-space:nowrap;text-decoration:none;color:var(--muted);font-family:var(--f-mono);font-size:.78rem;padding:6px 10px;border-radius:6px}
+nav a:hover{background:var(--surface2);color:var(--fg)}
+/* header */
+header.top{padding:48px 0 28px}
+.eyebrow{font-family:var(--f-mono);font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px}
+.lede{font-size:1.15rem;color:var(--muted);margin-top:16px;max-width:60ch}
+.warn-banner{display:flex;gap:12px;align-items:flex-start;background:var(--warn-soft);color:var(--warn);border:1px solid var(--warn);border-radius:8px;padding:12px 14px;margin:20px 0 0;font-size:.95rem}
+.warn-banner b{font-family:var(--f-mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+section{padding:44px 0 8px;scroll-margin-top:56px}
+section>header .chip{white-space:normal}
+section>header{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:6px}
+.step{font-family:var(--f-mono);font-size:.78rem;color:var(--accent);background:var(--accent-soft);border-radius:5px;padding:2px 8px}
+.sub{color:var(--muted);margin-bottom:20px}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;min-width:0}
+.card.plain{background:transparent}
+.card h3{margin-bottom:8px}
+.verdict{background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--accent);border-radius:10px;padding:22px 24px;margin-top:8px}
+.verdict h2{margin-bottom:10px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.kpi .n{font-family:var(--f-display);font-weight:800;font-size:1.7rem;line-height:1.1}
+.kpi .l{font-size:.85rem;color:var(--muted);margin-top:4px}
+.chip{display:inline-block;font-family:var(--f-mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;border-radius:5px;padding:2px 7px;white-space:nowrap;vertical-align:middle}
+.c-good{background:var(--good-soft);color:var(--good)} .c-warn{background:var(--warn-soft);color:var(--warn)}
+.c-bad{background:var(--bad-soft);color:var(--bad)} .c-info{background:var(--accent-soft);color:var(--accent)} .c-mute{background:var(--surface2);color:var(--muted)}
+.note{border-left:3px solid var(--line);padding:2px 0 2px 14px;color:var(--muted);margin:12px 0;max-width:70ch}
+.concl{background:var(--accent-soft);border-radius:8px;padding:12px 16px;margin:16px 0;max-width:80ch}
+.concl b{font-family:var(--f-mono);font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);display:block;margin-bottom:2px}
+.considered{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:12px;margin:12px 0}
+.considered>div{border:1px dashed var(--line);border-radius:8px;padding:12px 14px;background:var(--surface)}
+.considered .t{font-family:var(--f-mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:4px}
+/* tables */
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface);margin:12px 0}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:.9rem}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--f-mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);background:var(--surface2);position:sticky;top:0}
+tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+tr.us td{background:var(--accent-soft)}
+/* timeline */
+.pipe{display:grid;gap:0;margin:14px 0;border-left:2px solid var(--line);padding-left:0}
+.pipe>div{position:relative;padding:0 0 18px 28px}
+.pipe>div::before{content:"";position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--accent);border:2px solid var(--bg)}
+.pipe>div.partial::before{background:var(--warn)}
+.pipe .h{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.pipe .h b{font-family:var(--f-display);font-size:1.05rem}
+.pipe .out{font-family:var(--f-mono);font-size:.76rem;color:var(--muted);margin-top:2px;overflow-wrap:anywhere}
+/* bars */
+.bars{display:grid;gap:10px;margin:12px 0}
+.bar-row{display:grid;grid-template-columns:minmax(90px,170px) 1fr;gap:12px;align-items:center}
+.bar-row .lab{font-size:.88rem}
+.track{position:relative;height:26px;background:var(--surface2);border-radius:5px;overflow:hidden}
+.seg{position:absolute;top:0;bottom:0;display:flex;align-items:center;padding:0 8px;font-family:var(--f-mono);font-size:.74rem;white-space:nowrap;color:#fff}
+.pm{position:absolute;top:-5px;bottom:-5px;width:3px;background:var(--fg);z-index:2}
+.track.ov{overflow:visible}
+.s-var{background:#6B7A99}.s-cac{background:var(--warn)}.s-gp{background:var(--good)}.s-neg{background:var(--bad)}
+:root[data-theme="dark"] .seg{color:#0E131B}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .seg{color:#0E131B}}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.82rem;color:var(--muted);margin:6px 0 2px}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.rng{position:relative;height:14px;background:var(--surface2);border-radius:7px;margin:6px 0 2px}
+.rng .span{position:absolute;top:0;bottom:0;background:var(--accent);opacity:.35;border-radius:7px}
+.rng .dot{position:absolute;top:-3px;width:20px;height:20px;border-radius:50%;background:var(--accent);margin-left:-10px;border:3px solid var(--surface)}
+.axis{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:.7rem;color:var(--muted)}
+.tor{display:grid;grid-template-columns:minmax(80px,140px) 1fr 70px;gap:10px;align-items:center;font-size:.88rem}
+.tor .tr{position:relative;height:20px;background:var(--surface2);border-radius:4px}
+.tor .tr i{position:absolute;top:0;bottom:0;border-radius:4px}
+.tor .mid{position:absolute;left:50%;top:-3px;bottom:-3px;width:2px;background:var(--fg);opacity:.5}
+.rulerbox{overflow-x:auto;padding:0 4px}.rulerin{min-width:540px}
+.ruler{position:relative;height:130px;margin:10px 4px 24px}
+.ruler .line{position:absolute;left:0;right:0;top:64px;height:3px;background:var(--line)}
+.ruler .zone{position:absolute;top:56px;height:19px;background:var(--accent);opacity:.25;border-radius:4px}
+.ruler .m{position:absolute;transform:translateX(-50%);text-align:center;font-size:.72rem;line-height:1.25;width:96px}
+.ruler .m.up{bottom:76px}.ruler .m.dn{top:76px}
+.ruler .m::after{content:"";position:absolute;left:50%;width:2px;height:10px;background:var(--muted)}
+.ruler .m.up::after{bottom:-12px}.ruler .m.dn::after{top:-12px}
+.ruler .m b{display:block;font-family:var(--f-mono);font-size:.78rem}
+.ruler .m.us b{color:var(--accent)}
+.ticks{position:relative;height:16px;font-family:var(--f-mono);font-size:.68rem;color:var(--muted);margin:0 4px}
+.ticks span{position:absolute;transform:translateX(-50%)}
+/* map */
+.map{position:relative;aspect-ratio:1/1;width:100%;max-width:560px;background:var(--surface);border:1px solid var(--line);border-radius:10px;margin:12px 0;overflow:hidden}
+.map::before,.map::after{content:"";position:absolute;background:var(--line)}
+.map::before{left:50%;top:0;bottom:0;width:1px}.map::after{top:50%;left:0;right:0;height:1px}
+.map .ax{position:absolute;font-family:var(--f-mono);font-size:.66rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;max-width:44%}
+.map .pt{position:absolute;transform:translate(-50%,-50%);width:28px;height:28px;border-radius:50%;background:var(--muted);color:var(--surface);display:grid;place-items:center;font-family:var(--f-mono);font-weight:600;font-size:.8rem}
+.map .pt.us{background:var(--accent);color:#fff;width:34px;height:34px;outline:3px dashed var(--accent);outline-offset:3px;background-clip:padding-box}
+.map .gold{position:absolute;border:2px dashed var(--accent);border-radius:12px;background:var(--accent-soft);opacity:.6}
+.keys{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:4px 18px;font-size:.88rem;margin:6px 0 14px;padding:0;list-style:none}
+.keys li{margin:0}.keys b{font-family:var(--f-mono);color:var(--accent);margin-right:6px}
+/* svg chart */
+.chartwrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:10px;margin:12px 0}
+.chartwrap svg{display:block;min-width:600px;width:100%;height:auto}
+.chartwrap text{font-family:var(--f-mono);font-size:11px;fill:var(--muted)}
+.chartwrap .gl{stroke:var(--line);stroke-width:1}.chartwrap .zero{stroke:var(--fg);stroke-width:1.5;opacity:.6}
+.chartwrap .ln{fill:none;stroke-width:2.5}
+.l-bad{stroke:var(--bad)}.l-base{stroke:var(--accent)}.l-good{stroke:var(--good)}
+.chartwrap .tx-bad{fill:var(--bad)}.chartwrap .tx-base{fill:var(--accent)}.chartwrap .tx-good{fill:var(--good)}
+details{border:1px solid var(--line);border-radius:10px;background:var(--surface);margin:12px 0;padding:0}
+summary{cursor:pointer;padding:12px 16px;font-family:var(--f-display);font-weight:700;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+";font-family:var(--f-mono);color:var(--accent);display:inline-block;width:1.4em}
+details[open]>summary::before{content:"–"}
+details>div{padding:0 16px 14px}
+.q{display:grid;grid-template-columns:34px 1fr;gap:8px;padding:8px 0;border-bottom:1px solid var(--line)}
+.q:last-child{border-bottom:0}.q>b{font-family:var(--f-mono);color:var(--accent)}
+.q em{display:block;color:var(--muted);font-style:normal;font-size:.85rem}
+.gate{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));margin:12px 0}
+.gate>div{border-radius:10px;padding:14px 16px;border:1px solid var(--line);background:var(--surface)}
+.gate .go{border-top:5px solid var(--good)}.gate .pv{border-top:5px solid var(--warn)}.gate .kl{border-top:5px solid var(--bad)}
+.check{list-style:none;padding:0}.check li{display:grid;grid-template-columns:22px 1fr;gap:8px;padding:8px 0;border-bottom:1px solid var(--line)}
+.check li::before{content:"";width:16px;height:16px;border:2px solid var(--accent);border-radius:4px;margin-top:4px}
+.src{font-size:.82rem;color:var(--muted)}.src a{overflow-wrap:anywhere}
+footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
+@media (max-width:560px){.bar-row{grid-template-columns:1fr}.tor{grid-template-columns:1fr 1fr}.tor .tr{grid-column:1/-1}.ruler .m{width:78px;font-size:.66rem}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+
+<div class="wrap">
+<header class="top">
+  <div class="eyebrow">Venture review · 03/11/2026 · estágio: ideia</div>
+  <h1>Social Music</h1>
+  <p class="lede">Um badge vestível e minimalista que mostra sozinho a capa do álbum que você está ouvindo. Este relatório conta como a ideia foi testada, o que foi considerado em cada etapa, onde mudamos de ideia e o que ficou de pé.</p>
+  <div class="warn-banner"><b>Leia isto</b><span>Todo número de mercado, custo e preço aqui é <strong>estimativa não verificada</strong>, salvo quando traz fonte. Cada número leva um nível de confiança: <span class="chip c-good">alta</span> <span class="chip c-warn">média</span> <span class="chip c-bad">baixa</span>. Nenhum cliente foi entrevistado e nenhum protótipo funciona ainda.</span></div>
+</header>
+
+<nav aria-label="Seções"><ul>
+  <li><a href="#resumo">Resumo</a></li><li><a href="#processo">Processo</a></li><li><a href="#mercado">Mercado</a></li>
+  <li><a href="#concorrentes">Concorrentes</a></li><li><a href="#clientes">Clientes</a></li><li><a href="#pmf-etapa">Fit</a></li>
+  <li><a href="#modelo">Modelo</a></li><li><a href="#gtm">Entrada</a></li><li><a href="#revisao">Revisão</a></li>
+  <li><a href="#proximos">Próximos passos</a></li><li><a href="#limites">Limites</a></li>
+</ul></nav>
+
+<!-- ============ RESUMO ============ -->
+<section id="resumo">
+  <div class="verdict">
+    <span class="chip c-warn">veredito</span>
+    <h2 style="margin-top:10px">Seguir, mas só com testes baratos e com data para parar: 31/03/2027</h2>
+    <p>A ideia tem um espaço vazio real (nenhum vestível mostra sozinho a capa do que toca), mas hoje não há evidência de que alguém pague por isso. As contas só fecham no cenário otimista. O plano original de seguir foi derrubado pelo advogado do diabo por não conseguir reprovar. A versão abaixo foi reescrita para poder reprovar.</p>
+  </div>
+  <div class="grid g4" style="margin-top:14px">
+    <div class="kpi"><div class="n">0</div><div class="l">entrevistas feitas. Nenhuma suposição de cliente está validada.</div></div>
+    <div class="kpi"><div class="n">~US$18 mil</div><div class="l">custos fixos estimados, sem fonte de dinheiro. Você tem menos de €500.</div></div>
+    <div class="kpi"><div class="n">US$49,99</div><div class="l">preço do Divoom Emodo, que já é um badge com tela, no seu tamanho.</div></div>
+    <div class="kpi"><div class="n">≥ US$79</div><div class="l">preço mínimo para o modelo fechar, acima do Emodo. Sem teste ainda.</div></div>
+  </div>
+  <h3 style="margin-top:26px">Scorecard das seis dimensões</h3>
+  <p class="sub">Nota só existe quando há evidência. "?" também é resultado: você não sabe, e isso é risco.</p>
+  <div class="grid g3">
+    <div class="card"><h4>Demanda e problema</h4><div style="margin:6px 0"><span class="chip c-mute" style="font-size:1rem">?</span></div><p class="src">Zero entrevistas. A dor é do fundador.</p></div>
+    <div class="card"><h4>Mercado</h4><div style="margin:6px 0"><span class="chip c-warn" style="font-size:1rem">C−</span></div><p class="src">Rebaixado de C. O filtro real ("usaria uma tela no corpo") não tem dado.</p></div>
+    <div class="card"><h4>Posição competitiva</h4><div style="margin:6px 0"><span class="chip c-warn" style="font-size:1rem">C</span></div><p class="src">Rebaixado de C+. O diferencial é software e pode ser copiado.</p></div>
+    <div class="card"><h4>Fit produto-mercado</h4><div style="margin:6px 0"><span class="chip c-mute" style="font-size:1rem">?</span></div><p class="src">Não mensurável: não há produto nem usuário.</p></div>
+    <div class="card"><h4>Entrada no mercado</h4><div style="margin:6px 0"><span class="chip c-mute" style="font-size:1rem">?</span></div><p class="src">Só existe plano.</p></div>
+    <div class="card"><h4>Economia</h4><div style="margin:6px 0"><span class="chip c-bad" style="font-size:1rem">D</span></div><p class="src">Cenário base: sobra −US$0,25 por unidade depois de conquistar o cliente.</p></div>
+  </div>
+  <div class="concl"><b>Em uma frase</b>Você achou um espaço vazio, mas ainda não sabe se alguém quer ocupá-lo. O próximo passo mais barato é descobrir isso com um badge manual de menos de €50, antes de construir qualquer coisa.</div>
+</section>
+
+<!-- ============ PROCESSO ============ -->
+<section id="processo">
+  <header><span class="step">COMO FOI</span><h2>O processo, passo a passo</h2></header>
+  <p class="sub">Usamos o método do plugin "venture" (autor Parsa). Ele encadeia oito etapas em uma pasta de trabalho da ideia, e cada etapa lê o que a anterior escreveu.</p>
+  <div class="grid g2">
+    <div class="card"><h3>Sobre o plugin</h3>
+      <ul>
+        <li>Aparecia instalado no seu computador, mas esta sessão roda na nuvem e não o enxergava. Duas tentativas de chamar a skill falharam.</li>
+        <li>Achei o código-fonte público no GitHub (repositório <span class="mono">heyparsadev/claude-venture-plugin</span>, commit revisado pelo diretório) e li as skills, os três agentes e os modelos de relatório.</li>
+        <li>Verificação de segurança: só arquivos de texto, licença MIT, nenhum script, nenhum comando de rede ou de shell dentro.</li>
+        <li>Segui o texto real dele em cada etapa. Não é o plugin rodando por dentro: sou eu aplicando o método dele, com os agentes dele (pesquisador, caçador de concorrentes, advogado do diabo) lançados como subagentes.</li>
+      </ul></div>
+    <div class="card"><h3>Regras do plugin que seguimos</h3>
+      <ul>
+        <li>Toda afirmação de fora leva fonte e data. Toda estimativa leva nível de confiança.</li>
+        <li>Número que não existe vira "sem dado encontrado". Nunca inventamos.</li>
+        <li>Validar antes de escalar: sem clientes, nada de plano de crescimento.</li>
+        <li>Antes de qualquer veredito, um agente de cabeça fresca ataca o argumento.</li>
+        <li>A recomendação precisa poder falhar: "continue SE X até a data Y".</li>
+      </ul></div>
+  </div>
+  <h3 style="margin-top:22px">As etapas, em ordem</h3>
+  <div class="pipe">
+    <div><div class="h"><b>1. Intake e pasta de trabalho</b><span class="chip c-good">feito</span></div>
+      <p>Quatro perguntas suas definiram o rumo: <strong>EUA primeiro e Brasil depois</strong>, relatórios em português, nome provisório Social Music, pesquisa de mercado profunda. A pasta nasceu com um <span class="mono">VENTURE.md</span> que cada etapa lê e atualiza.</p><div class="out">ventures/social-music/VENTURE.md</div></div>
+    <div><div class="h"><b>2. Pesquisa de mercado</b><span class="chip c-good">feito</span><span class="chip c-info">5 pesquisadores em paralelo</span></div>
+      <p>Cada pesquisador respondeu uma pergunta: tamanho do mercado de merch, quantos clientes dá para contar, produtos parecidos e quanto venderam, tendências e custos de entrada.</p><div class="out">02-market/market-research-2026-11-03.md · research-notes/q1…q5</div></div>
+    <div><div class="h"><b>3. Concorrentes</b><span class="chip c-good">feito</span><span class="chip c-info">3 caçadores em paralelo</span></div>
+      <p>Mapeei 11 concorrentes. Você escolheu três para estudo a fundo (Emodo, badges genéricos, Tuneshine). O status quo (camiseta, stories, não fazer nada) eu analisei direto, como o plugin manda.</p><div class="out">03-competitors/competitive-analysis · profiles/ · 3 battlecards</div></div>
+    <div><div class="h"><b>4. Clientes</b><span class="chip c-warn">metade: só preparação</span></div>
+      <p>Fiz o perfil do cliente ideal e o roteiro de entrevista. A análise de respostas reais não pode existir antes de falar com gente.</p><div class="out">01-discovery/icp-hypothesis · interview-guide</div></div>
+    <div class="partial"><div class="h"><b>5. Fit produto-mercado</b><span class="chip c-warn">não mensurável</span></div>
+      <p>Sem usuários, não há o que medir. O plugin manda dizer isso e deixar o plano de medição pronto.</p><div class="out">04-pmf/pmf-measurement-plan</div></div>
+    <div><div class="h"><b>6. Modelo de negócio</b><span class="chip c-good">feito</span><span class="chip c-warn">todos os custos são suposição</span></div>
+      <p>Canvas, contas por unidade em três cenários, projeção de 18 meses e um script que refaz tudo com um comando.</p><div class="out">06-model/business-model · lean-canvas · unit_economics.py</div></div>
+    <div><div class="h"><b>7. Entrada no mercado</b><span class="chip c-good">feito</span><span class="chip c-warn">plano de validação</span></div>
+      <p>Posicionamento, mensagem, canais, preço e lançamento. Como a ideia está no estágio inicial, o plano é de apostas pequenas para aprender, não de crescimento.</p><div class="out">05-gtm/ (5 arquivos)</div></div>
+    <div><div class="h"><b>8. Revisão final</b><span class="chip c-good">feito</span><span class="chip c-info">advogado do diabo</span></div>
+      <p>Notas por dimensão, checagem de coerência entre etapas, ataque independente e veredito. Aqui o plano original de seguir foi reescrito.</p><div class="out">venture-review-2026-11-03.md</div></div>
+  </div>
+  <h3 style="margin-top:8px">Decisões que foram suas ao longo do processo</h3>
+  <div class="grid g3">
+    <div class="card"><h4>Mercado</h4><p>EUA primeiro, Brasil depois.</p></div>
+    <div class="card"><h4>Concorrentes a fundo</h4><p>Divoom Emodo, badges genéricos da Amazon e Tuneshine.</p></div>
+    <div class="card"><h4>Recursos</h4><p>Menos de €500 agora, 5 a 10 horas por semana, ambição ainda indefinida.</p></div>
+  </div>
+</section>
+
+<!-- ============ MERCADO ============ -->
+<section id="mercado">
+  <header><span class="step">ETAPA 2</span><h2>Mercado</h2></header>
+  <p class="sub">Pergunta: quão grande é a oportunidade, como ela muda e por qual segmento entrar?</p>
+  <div class="concl"><b>Conclusão da etapa</b>Mercado de escala de marca independente, não de startup para investidor de risco. O físico virou objeto de exibição (a favor), mas não existe prova de que alguém pague para exibir o gosto em tempo real em público.</div>
+
+  <h3>O que cada pesquisador perguntou e achou</h3>
+  <div class="grid g2">
+    <div class="card"><h4>1 · Tamanho do merch musical</h4>
+      <p>Não existe número público confiável só dos EUA ou só do Brasil. Referência global: <strong>US$16,3 bi em 2030</strong>, com crescimento caindo para 1,6% ao ano <span class="chip c-warn">média</span>. A Universal (maior gravadora) teve €811 mi em merch em 2025, praticamente estável <span class="chip c-good">alta</span>.</p>
+      <p class="src">Um fornecedor divulgou US$5,8 bi, mas sem método publicado. Descartei.</p></div>
+    <div class="card"><h4>2 · Quantos clientes dá para contar</h4>
+      <p>EUA, 18 a 29 anos: <strong>55,3 milhões</strong> <span class="chip c-warn">média</span>. Brasil: <strong>36,7 milhões</strong> <span class="chip c-good">alta</span>. Nos EUA, 20% dos ouvintes são "superfãs"; em 2024, 26% dos ouvintes em geral compraram merch de artista, contra cerca de 70% entre os superfãs <span class="chip c-bad">baixa</span>.</p>
+      <p class="src">Relatórios com taxas por idade são pagos. Não achei esses números para o grupo de 18 a 29.</p></div>
+    <div class="card"><h4>3 · Produtos parecidos e tração</h4>
+      <p>Emodo a <strong>US$49,99</strong> (jul/2026), Tuneshine a US$199,99, genéricos de US$10 a 48. Nenhuma empresa publica vendas auditadas. O pin digital mais parecido no Kickstarter (Pins Collective) teve 1.042 apoiadores e US$102 mil.</p>
+      <p class="src">Hardware no Kickstarter: no máximo 32% entregam no prazo (estudo de 2018, 144 projetos).</p></div>
+    <div class="card"><h4>4 · Tendências</h4>
+      <p>Vinil nos EUA passou de US$1 bi em 2025, 19º ano seguido de alta <span class="chip c-good">alta</span>. Metade dos compradores não tem toca-discos <span class="chip c-warn">média</span>. Jovens de 16 a 24 compram mais chaveiro e acessório do que camiseta e preferem marca discreta, "que só fã reconhece" <span class="chip c-warn">média</span>.</p></div>
+    <div class="card" style="grid-column:1/-1"><h4>5 · Para vender legalmente</h4>
+      <div class="grid g3">
+        <div><strong>EUA (FCC)</strong><p class="src">Com módulo Bluetooth já certificado: ~US$3 a 8 mil e 2 a 6 semanas, de um único fornecedor <span class="chip c-bad">baixa</span>. A FCC exige uma parte responsável nos EUA.</p></div>
+        <div><strong>Brasil (Anatel)</strong><p class="src">Pedido por empresa brasileira. Ensaios mais organismo certificador: R$6 a 50 mil, só de consultorias <span class="chip c-bad">baixa</span>.</p></div>
+        <div><strong>Tarifa EUA sobre a China</strong><p class="src">+12,5% (Section 301) desde 24/07/2026, mais taxa básica e listas antigas conforme o código do produto, ainda indefinido <span class="chip c-good">alta</span>.</p></div>
+      </div></div>
+  </div>
+
+  <h3 style="margin-top:26px">As contas: tamanho do mercado nos EUA</h3>
+  <p class="sub">Só foi possível o cálculo de baixo para cima (contando pessoas). O cálculo de cima para baixo exigiria um número de mercado por país que não existe publicamente. Cada fator marcado é suposição.</p>
+  <div class="tw"><table>
+    <tr><th>Passo</th><th class="num">Baixo</th><th class="num">Base</th><th class="num">Alto</th><th>De onde vem</th></tr>
+    <tr><td>Jovens 18–29 nos EUA</td><td class="num" colspan="3">55,28 mi</td><td>Census 2025 <span class="chip c-warn">média</span></td></tr>
+    <tr><td>Compram "identidade musical"</td><td class="num">14% → 7,7 mi</td><td class="num">11,1 mi</td><td class="num">26% → 14,4 mi</td><td>20%×70% superfãs; 26% dos ouvintes <span class="chip c-bad">baixa</span></td></tr>
+    <tr><td>Preço assumido</td><td class="num">US$50</td><td class="num">US$60</td><td class="num">US$80</td><td>âncoras: Emodo, Pins Collective</td></tr>
+    <tr><td><strong>TAM</strong> (compra única)</td><td class="num">US$387 mi</td><td class="num">US$663 mi</td><td class="num">US$1,15 bi</td><td>pessoas × preço</td></tr>
+    <tr><td><strong>SAM</strong> (alcance em 3 anos 10/20/30%)</td><td class="num">US$39 mi</td><td class="num">US$133 mi</td><td class="num">US$345 mi</td><td>suposição <span class="chip c-bad">baixa</span></td></tr>
+    <tr><td><strong>SOM</strong> (adoção 1/2/5%)</td><td class="num">7,7 mil un.</td><td class="num">44 mil un.</td><td class="num">216 mil un.</td><td>padrão do guia para mercado inicial</td></tr>
+    <tr><td>SOM em receita</td><td class="num">US$0,39 mi</td><td class="num">US$2,65 mi</td><td class="num">US$17 mi</td><td>unidades × preço</td></tr>
+  </table></div>
+  <div class="grid g2">
+    <div class="card"><h4>Faixa de cada camada (escala logarítmica)</h4>
+      <p class="src">Cada linha vai do cenário baixo (esquerda) ao alto (direita), em escala logarítmica própria. O ponto é o cenário base.</p>
+      <div><strong>TAM</strong> <span class="src">US$0,39 bi a 1,15 bi</span><div class="rng"><div class="span" style="left:0;width:100%"></div><div class="dot" style="left:49%"></div></div></div>
+      <div><strong>SAM</strong> <span class="src">US$39 mi a 345 mi</span><div class="rng"><div class="span" style="left:0;width:100%"></div><div class="dot" style="left:56%"></div></div></div>
+      <div><strong>SOM, receita em 3 anos</strong> <span class="src">US$0,39 mi a 17 mi</span><div class="rng"><div class="span" style="left:0;width:100%"></div><div class="dot" style="left:51%"></div></div></div>
+      <div class="axis"><span>Do baixo ao alto: TAM ~3×, SAM ~9×, SOM ~44×</span><span>cada linha tem escala própria</span></div></div>
+    <div class="card"><h4>Teste de sanidade</h4>
+      <p>O cenário alto (~US$5,7 mi por ano) seria entre 15% e 40% da receita estimada da <strong>Divoom inteira</strong> (US$15 a 35 mi por ano, <span class="chip c-bad">baixa</span>). Para uma empresa nova isso é implausível.</p>
+      <p>O comparável mais próximo, o Pins Collective, vendeu cerca de 2.500 pins somando duas plataformas de crowdfunding.</p>
+      <p><strong>Apostei no cenário base ou abaixo:</strong> algo como 1 a 3 mil unidades no primeiro ano (estimativa minha).</p></div>
+  </div>
+  <p class="note">Variável que mais pesa: a <strong>adoção</strong> (1% contra 5% muda o resultado em 5 vezes), e é a suposição mais fraca.</p>
+
+  <h3>Segmentos considerados</h3>
+  <div class="tw"><table>
+    <tr><th>Segmento</th><th>Tamanho</th><th>Disposição a pagar</th><th>Encaixe</th></tr>
+    <tr class="us"><td><strong>"Curadores"</strong> de gosto variado, que compram vinil ou merch como identidade</td><td>parte dos 7,7 a 14,4 mi, sem número</td><td>sem dado; vinil como decoração sugere abertura</td><td><span class="chip c-good">entrada recomendada</span> o ao vivo vale mais aqui, e o fundador é deste grupo</td></tr>
+    <tr><td>Fandoms (K-pop, pop)</td><td>mais de 1/3 dos ouvintes de K-pop são superfãs</td><td>alta: superfãs gastam US$39/mês em físico</td><td><span class="chip c-warn">segundo teste</span> o Emodo já mira esse público</td></tr>
+    <tr><td>Colecionadores de vinil e audiófilos</td><td>13% dos ouvintes compraram vinil em 12 meses</td><td>alta (Tuneshine a US$200)</td><td><span class="chip c-bad">baixo</span> querem objeto de mesa</td></tr>
+    <tr><td>Frequentadores de shows</td><td>74% da Gen Z foi a um show no último ano</td><td>sem dado</td><td><span class="chip c-warn">pontual</span></td></tr>
+    <tr><td>Jovens no Brasil</td><td>36,7 mi de 18–29</td><td>menor; físico é &lt;1% da receita musical</td><td><span class="chip c-mute">depois</span> Anatel exige empresa brasileira</td></tr>
+  </table></div>
+
+  <h3>Ventos a favor e contra</h3>
+  <div class="grid g2">
+    <div class="card"><h4>A favor</h4><ul>
+      <li>Vinil como objeto de exibição: US$1,04 bi em 2025 (+9,3%).</li>
+      <li>Jovens preferem acessório discreto a camiseta.</li>
+      <li>Wearables no mundo cresceram 9,1% em 2025 (611,5 mi de unidades): não há sinal de cansaço de wearables.</li></ul></div>
+    <div class="card"><h4>Contra ou misto</h4><ul>
+      <li>Exibir o gosto já é grátis e digital: o Wrapped teve 200 mi de usuários e 500 mi de compartilhamentos em 24 horas.</li>
+      <li>Álbum físico de K-pop caiu dois anos seguidos (~120 mi em 2023 para ~93,5 mi em 2025).</li>
+      <li>81% da Gen Z adulta diz querer se desconectar mais: risco de parecer "mais uma tela" <span class="chip c-bad">baixa</span>.</li>
+      <li>Gadget novo de categoria nova fracassa: Humane AI Pin foi encerrado em 2025.</li></ul></div>
+  </div>
+  <div class="considered">
+    <div><div class="t">Considerei e descartei</div>Cálculo de cima para baixo (sem número por país); estimativas de fornecedor sem método; incluir o Brasil no tamanho (sem dado de merch musical).</div>
+    <div><div class="t">Correção feita no caminho</div>Eu havia anotado o Emodo a ~US$40. A loja oficial mostra US$49,99. O VENTURE.md foi corrigido.</div>
+  </div>
+</section>
+
+<!-- ============ CONCORRENTES ============ -->
+<section id="concorrentes">
+  <header><span class="step">ETAPA 3</span><h2>Concorrentes</h2></header>
+  <p class="sub">Pergunta: quem disputa o dinheiro e a atenção do mesmo cliente, e onde há brecha?</p>
+  <div class="concl"><b>Conclusão da etapa</b>Nenhum vestível mostra automaticamente a capa do que toca. É a única diferença defensável. Mas ela é software, e a Divoom pode copiá-la com uma atualização, com fábrica e varejo que você não tem.</div>
+
+  <h3>O mapa dos 11, por tipo</h3>
+  <div class="grid g3">
+    <div class="card"><h4>Diretos</h4><ul><li><strong>Divoom Emodo</strong> <span class="chip c-bad">ameaça alta</span></li><li><strong>Badges genéricos</strong> (Pintura, NIKKO, MemoPin, clones) <span class="chip c-warn">média</span></li></ul></div>
+    <div class="card"><h4>Indiretos</h4><ul><li><strong>Tuneshine</strong> <span class="chip c-warn">média-baixa</span></li><li>Divoom Pixoo, mochilas, caixa Tiivoo-2</li><li>Projetos caseiros (MusicStation e outros)</li><li>Spotify no relógio, placas "tocando agora" de mesa</li></ul></div>
+    <div class="card"><h4>Status quo</h4><ul><li><strong>Merch estático</strong> <span class="chip c-bad">alta</span></li><li><strong>Exibição digital grátis</strong> (Wrapped, stories, Airbuds) <span class="chip c-warn">média</span></li><li><strong>Não fazer nada</strong></li></ul></div>
+  </div>
+
+  <h3 style="margin-top:22px">Matriz comparativa</h3>
+  <div class="tw"><table>
+    <tr><th></th><th>Alvo</th><th class="num">Preço</th><th>Capa automática</th><th>Vestível</th><th>Bateria</th><th>Fraqueza</th></tr>
+    <tr class="us"><td><strong>Social Music (hipótese)</strong></td><td>curadores 18–29, EUA</td><td class="num">US$50–80</td><td><span class="chip c-info">proposta</span></td><td>sim</td><td>desconhecida</td><td>não existe; demanda não validada</td></tr>
+    <tr><td>Divoom Emodo</td><td>anime, ídolos, convenções</td><td class="num">US$49,99</td><td><span class="chip c-bad">não</span> manual</td><td>sim</td><td>~8 h (afirmação)</td><td>app "finicky"; nada automático</td></tr>
+    <tr><td>Badges genéricos</td><td>anime, cosplay</td><td class="num">US$10–48</td><td><span class="chip c-bad">não</span> manual</td><td>sim</td><td>5–8 h reais</td><td>pareamento e bateria</td></tr>
+    <tr><td>Tuneshine</td><td>adultos com renda, presente</td><td class="num">US$199,99</td><td><span class="chip c-good">sim</span></td><td><span class="chip c-bad">não</span></td><td>na tomada</td><td>não portátil; ~30% de capas em branco</td></tr>
+    <tr><td>Merch estático</td><td>qualquer fã</td><td class="num">~US$5–40*</td><td><span class="chip c-bad">não</span> fixo</td><td>sim</td><td>n/a</td><td>retrato velho do gosto</td></tr>
+    <tr><td>Exibição digital</td><td>todos com celular</td><td class="num">grátis</td><td><span class="chip c-good">sim</span></td><td><span class="chip c-bad">não</span></td><td>n/a</td><td>só online, só para conhecidos</td></tr>
+  </table></div>
+  <p class="src">* Preço de merch não foi pesquisado em detalhe.</p>
+
+  <h3>Onde cada um cai no preço</h3>
+  <div class="rulerbox"><div class="rulerin"><div class="ruler" aria-label="Régua de preços de US$0 a US$250">
+    <div class="line"></div>
+    <div class="zone" style="left:4%;width:15.2%" title="Genéricos US$10–48"></div>
+    <div class="zone" style="left:27.6%;width:4%;opacity:.6" title="Hipótese US$69–79"></div>
+    <div class="m up" style="left:11.6%">Genéricos<b>US$10–48</b></div>
+    <div class="m dn" style="left:20%">Emodo<b>US$49,99</b></div>
+    <div class="m up us" style="left:29.6%">Social Music (hipótese)<b>US$69–79</b></div>
+    <div class="m dn" style="left:44%">Pixoo<b>US$70–150</b></div>
+    <div class="m up" style="left:80%">Tuneshine<b>US$199,99</b></div>
+  </div>
+  <div class="ticks"><span style="left:0">$0</span><span style="left:20%">$50</span><span style="left:40%">$100</span><span style="left:60%">$150</span><span style="left:80%">$200</span><span style="left:100%">$250</span></div></div></div>
+  <p class="note" style="margin-top:20px">A hipótese de preço fica no meio do caminho entre clones baratos e um produto de mesa caro. A conta do modelo exige ficar acima do Emodo.</p>
+
+  <h3>Mapa de posicionamento</h3>
+  <p class="sub">Eixos escolhidos por serem os que mais pesam para o comprador: horizontal, do manual ao automático; vertical, do gadget de fandom ao objeto discreto de identidade musical.</p>
+  <div class="map" role="img" aria-label="Mapa: horizontal manual a automático, vertical gadget a objeto de identidade">
+    <div class="ax" style="top:6px;left:50%;transform:translateX(-50%);text-align:center">objeto discreto de identidade musical</div>
+    <div class="ax" style="bottom:6px;left:50%;transform:translateX(-50%);text-align:center">estética de gadget / fandom</div>
+    <div class="ax" style="left:6px;top:51%">manual / fixo</div>
+    <div class="ax" style="right:6px;top:51%;text-align:right">automático / ao vivo</div>
+    <div class="gold" style="left:62%;top:8%;width:34%;height:30%"></div>
+    <div class="pt us" style="left:79%;top:23%" title="Social Music">★</div>
+    <div class="pt" style="left:18%;top:20%">1</div>
+    <div class="pt" style="left:22%;top:78%">2</div>
+    <div class="pt" style="left:34%;top:66%">3</div>
+    <div class="pt" style="left:72%;top:60%">4</div>
+    <div class="pt" style="left:82%;top:75%">5</div>
+    <div class="pt" style="left:57%;top:45%">6</div>
+  </div>
+  <ul class="keys">
+    <li><b>★</b>Social Music (hipótese)</li><li><b>1</b>Merch estático</li><li><b>2</b>Divoom Emodo</li>
+    <li><b>3</b>Badges genéricos</li><li><b>4</b>Exibição digital (Wrapped, Airbuds)</li><li><b>5</b>Projetos caseiros</li><li><b>6</b>Tuneshine (automático, mas em casa)</li>
+  </ul>
+  <p><strong>O quadrante vazio</strong> (vestível, automático e discreto) é ouro ou cemitério? Ainda não dá para saber. O Tuneshine (6) é automático e discreto, mas fica de fora da zona destacada porque não é vestível: essa dimensão não aparece nos eixos.</p>
+  <div class="grid g2">
+    <div class="card"><h4>Sinais de ouro</h4><ul><li>Tuneshine prova que há quem pague US$200 por capa automática em casa.</li><li>Jovens preferem acessório e marca discreta.</li></ul></div>
+    <div class="card"><h4>Sinais de cemitério</h4><ul><li>Um pin com tela já existiu (Pins Collective, ~2018) e a imprensa disse que "resolve um problema que ninguém tem".</li><li>Nenhum hobbista transformou o "tocando agora" vestível em produto.</li></ul></div>
+  </div>
+  <div class="note">Só é ouro se "automático" for o motivo de usar e não só um recurso a mais. Isso precisa ser testado antes de construir.</div>
+
+  <h3 style="margin-top:22px">O que cada perfil mostrou</h3>
+  <div class="grid g2">
+    <div class="card"><h3>Divoom Emodo</h3><span class="chip c-bad">ameaça alta</span>
+      <ul style="margin-top:10px"><li>Tela colorida de 1,8", 360×360, 29,7 g, ~8 h de bateria (afirmações do fabricante), 4 GB, US$49,99, lançado em 30/07/2026.</li>
+      <li><strong>Não mostra a música tocando.</strong> O próprio guia da Divoom usa "mostrar a capa do Spotify automaticamente" como exemplo do que o app <em>não</em> faz, e diz que isso exige automação fora do app.</li>
+      <li>Alerta: uma loja diz que a caixa de som Tiivoo-2 mostra a capa ao tocar. A Divoom não confirma.</li>
+      <li>Clientes reclamam do app ("Very Finicky app") e da devolução burocrática.</li></ul></div>
+    <div class="card"><h3>Badges genéricos</h3><span class="chip c-warn">ameaça média</span>
+      <ul style="margin-top:10px"><li>Telas de 1,7 a 1,85", US$10 a 48, anúncios quase idênticos de várias marcas (sugere fábricas em comum; é inferência minha).</li>
+      <li>Nenhum mostra o que toca. Bateria real: ~8 h contra 16 h anunciadas, em um teste.</li>
+      <li>Reclamações: pareamento difícil, app com permissões demais, "gimmick".</li>
+      <li>Ressalva: páginas da Amazon retornaram erro e uma tentativa de contornar foi bloqueada pelo sistema. Notas e contagem de avaliações da Amazon ficaram sem dado.</li></ul></div>
+    <div class="card"><h3>Tuneshine</h3><span class="chip c-warn">ameaça média-baixa</span>
+      <ul style="margin-top:10px"><li>Painel LED 64×64 para a mesa, US$199,99, feito por um fundador sozinho, sem investidores.</li>
+      <li>Lê Spotify, Apple Music, Sonos, Roon e last.fm; Shazam para vinil e rádio.</li>
+      <li>Vende como decoração e presente, para um público aparentemente mais velho.</li>
+      <li>Fraquezas: na tomada, ~30% de capas em branco via last.fm, mais fraco com K-pop e J-pop. Sem versão vestível anunciada.</li></ul></div>
+    <div class="card"><h3>Status quo</h3><span class="chip c-bad">ameaça alta</span>
+      <ul style="margin-top:10px"><li>Merch estático: zero atrito e nunca descarrega. Mas é um retrato fixo; o gosto muda e a camiseta não.</li>
+      <li>Exibição digital: Wrapped e Airbuds (15 mi de downloads) saciam parte da vontade de mostrar o gosto, de graça, mas só online e para conhecidos.</li>
+      <li>Não fazer nada: é a dor do fundador, e a escolha de quem não tem orgulho do gosto (não é cliente).</li></ul></div>
+  </div>
+
+  <h3 style="margin-top:22px">Análise SWOT</h3>
+  <div class="grid g2">
+    <div class="card"><h4>Forças</h4><ul><li>Única proposta com capa automática e vestível.</li><li>Simplicidade como valor (um botão, uma luz).</li><li>Foco em identidade musical, que ninguém atende.</li></ul></div>
+    <div class="card"><h4>Fraquezas</h4><ul><li>Sem produto, marca, fábrica nem canal.</li><li>Preço acima dos clones e igual ao Emodo com menos funções.</li><li>Bateria desconhecida.</li><li>Depende do celular para buscar a capa.</li></ul></div>
+    <div class="card"><h4>Oportunidades</h4><ul><li>Curadores sem ninguém atendendo.</li><li>Dores dos concorrentes: pareamento, app, bateria, devolução.</li><li>Físico como objeto de exibição em alta.</li></ul></div>
+    <div class="card"><h4>Ameaças</h4><ul><li>Divoom lança "tocando agora" por software.</li><li>Clones copiam em meses, e a parte técnica já é aberta.</li><li>O curador pode achar tela "cafona" (não testado).</li></ul></div>
+  </div>
+  <div class="grid g2" style="margin-top:14px">
+    <div class="card"><h3>Onde ganhar</h3><ol style="padding-left:1.2em;margin:.3em 0"><li><strong>Automático de verdade</strong>, sem abrir app.</li><li><strong>Objeto de identidade musical</strong> em vez de brinquedo de fandom.</li><li><strong>Confiabilidade:</strong> pareamento, app mínimo, bateria de dia inteiro.</li></ol></div>
+    <div class="card"><h3>Onde não competir</h3><ul><li>Preço contra clones de US$10 a 30.</li><li>Versatilidade (GIF, vídeo, placar): é o jogo da Divoom.</li><li>Fandom: o Emodo já fala com esse público.</li></ul></div>
+  </div>
+  <p class="src">Feitos também: três cartões de batalha (contra Emodo, genéricos e merch estático) com "quando ganhamos", "quando perdemos" e respostas a objeções.</p>
+</section>
+
+<!-- ============ CLIENTES ============ -->
+<section id="clientes">
+  <header><span class="step">ETAPA 4</span><h2>Clientes</h2><span class="chip c-warn">só preparação</span></header>
+  <p class="sub">Pergunta: quem sente isso com mais força, e como descobrir sem enganar a si mesmo?</p>
+  <div class="concl"><b>Conclusão da etapa</b>Não há resultado ainda. O que existe é uma hipótese de cliente e um roteiro que impede os erros mais comuns de quem entrevista.</div>
+  <div class="grid g2">
+    <div class="card"><h3>Cliente ideal (hipótese)</h3>
+      <p>Jovem de 18 a 29 anos nos EUA para quem o gosto musical é identidade, que já gasta para <em>mostrar</em> o gosto, tem gosto variado que muda de semana em semana e passa tempo em público de fone.</p>
+      <p><strong>Gatilho:</strong> acabou de se apaixonar por um álbum e sente que "ninguém em volta sabe".</p></div>
+    <div class="card"><h3>Onde achar 10 deles</h3><ul>
+      <li>Reddit: r/indieheads, r/vinyl, r/LetsTalkMusic e outros, com DM e sem anúncio.</li>
+      <li>Rate Your Music, Last.fm e servidores de Discord.</li>
+      <li>Rede própria (anotando o viés de amizade).</li>
+      <li>Fandoms (K-pop, Swifties) como teste secundário.</li></ul></div>
+    <div class="card"><h3>Quem não é alvo</h3><ul><li>Quem ouve só como fundo.</li><li>Quem nunca gastou com nada de música além da assinatura.</li><li>Quem não usa fone em público.</li><li>Amigos que já ouviram a ideia.</li></ul></div>
+    <div class="card"><h3>Regras do método Mom Test</h3><ul><li>Falar da vida da pessoa, não da ideia.</li><li>Perguntar sobre o passado, não sobre o futuro.</li><li>Procurar comportamento e compromisso, não elogio. "Eu usaria" não conta.</li></ul></div>
+  </div>
+  <details open><summary>O roteiro de entrevista: pergunta, e qual suposição ela testa</summary><div>
+    <div class="q"><b>1</b><div>Como a música entra na sua semana? Onde você ouve?<em>filtra quem só usa de fundo</em></div></div>
+    <div class="q"><b>2</b><div>Que álbum você descobriu há pouco? Como as pessoas ao redor ficaram sabendo?<em>a dor central</em></div></div>
+    <div class="q"><b>3</b><div>Qual foi a última coisa que você comprou sobre música, mas não para ouvir? O que, quanto, por quê?<em>gasto real, preço aceito</em></div></div>
+    <div class="q"><b>4</b><div>Como seu gosto mudou nos últimos meses? O que você veste ainda combina?<em>o gosto corre mais rápido que o merch?</em></div></div>
+    <div class="q"><b>5</b><div>Onde você compartilha o que ouve hoje? O que aconteceu depois da última vez?<em>o substituto grátis</em></div></div>
+    <div class="q"><b>6</b><div>Já houve um momento em que você não queria que vissem o que ouvia?<em>constrangimento do modo ao vivo</em></div></div>
+    <div class="q"><b>7</b><div>Quais aparelhos você carrega todo dia? Qual você parou de usar por causa da recarga?<em>aceitar recarregar</em></div></div>
+    <div class="q"><b>8–12</b><div>Parte mais chata ou divertida de ser quem gosta muito de música; ranking; pedir novo contato, indicação e, no futuro, teste.<em>sinal de compromisso</em></div></div>
+  </div></details>
+  <div class="note">Na revisão, o advogado do diabo apontou que a pergunta 4 induz o "sim". A versão nova pergunta por comportamento: "a última camiseta de banda que você parou de usar, quando e por quê?". Metade dos entrevistados deve vir de fora de grupos de vinil e merch.</div>
+</section>
+
+<!-- ============ PMF ============ -->
+<section id="pmf-etapa">
+  <header><span class="step">ETAPA 5</span><h2>Fit produto-mercado</h2><span class="chip c-warn">não mensurável</span></header>
+  <div class="concl"><b>Conclusão da etapa</b>Sem produto e sem usuário, não há como medir. O plugin manda dizer isso e voltar a validar o problema primeiro.</div>
+  <div class="grid g2">
+    <div class="card"><h3>Quando medir</h3><ul><li>Com 30 a 40 pessoas que usaram o badge pelo menos duas vezes nas últimas duas semanas.</li><li>Decisão 8 semanas depois do primeiro lote de protótipos entregue a quem não é amigo.</li><li>Pesquisa Sean Ellis: "como você se sentiria se não pudesse mais usar?". 40% ou mais de "muito decepcionado" é sinal forte.</li></ul></div>
+    <div class="card"><h3>O que medir (minha adaptação, sem benchmark pronto para hardware vestível)</h3><ul><li><strong>Dias de uso por semana</strong> por pessoa. É a curva de retenção do produto.</li><li>Percentual do tempo em "tocando agora", "favorito" e desligado.</li><li>Quantas vezes o usuário esconde ou troca a capa.</li><li>Quantas vezes a bateria acabou.</li><li>Quantos testadores indicaram alguém sem ser pedido.</li></ul></div>
+  </div>
+</section>
+
+<!-- ============ MODELO ============ -->
+<section id="modelo">
+  <header><span class="step">ETAPA 6</span><h2>Modelo de negócio</h2><span class="chip c-warn">desatualizado: preço base US$69, entrada no mercado usa US$79</span></header>
+  <p class="sub">Pergunta: como isso ganha dinheiro, e a conta sobrevive à realidade?</p>
+  <div class="concl"><b>Conclusão da etapa</b>O modelo não funciona ainda. No cenário base, cada cliente conquistado por anúncio deixa um resultado de −US$0,25. Só no otimista a conta fecha. Pela regra do plugin, "só funciona no otimista" quer dizer "ainda não".</div>
+
+  <h3>Entradas e de onde vêm</h3>
+  <div class="tw"><table>
+    <tr><th>Entrada</th><th class="num">Pessimista</th><th class="num">Base</th><th class="num">Otimista</th><th>Rótulo</th></tr>
+    <tr><td>Preço</td><td class="num">US$59</td><td class="num">US$69</td><td class="num">US$79</td><td>suposição, ancorada em Emodo e Tuneshine</td></tr>
+    <tr><td>Peças (BOM) + montagem</td><td class="num">US$34</td><td class="num">US$25</td><td class="num">US$18,50</td><td>suposição <span class="chip c-bad">baixa</span> sem orçamento</td></tr>
+    <tr><td>Tarifa de importação</td><td class="num">25%</td><td class="num">20%</td><td class="num">15%</td><td>em parte fonte: +12,5% desde jul/2026</td></tr>
+    <tr><td>Frete + envio ao cliente</td><td class="num">US$10</td><td class="num">US$8,50</td><td class="num">US$7</td><td>suposição</td></tr>
+    <tr><td>Devoluções e garantia</td><td class="num">8%</td><td class="num">5%</td><td class="num">3%</td><td>suposição</td></tr>
+    <tr><td>Custo para conquistar um cliente (CAC)</td><td class="num">US$40</td><td class="num">US$25</td><td class="num">US$12</td><td>suposição <span class="chip c-bad">baixa</span></td></tr>
+    <tr><td>Custos fixos únicos</td><td class="num" colspan="3">US$18 mil</td><td>certificação e molde etc.; só as faixas de certificação têm fonte</td></tr>
+  </table></div>
+  <p class="src">O salário do fundador é zero no modelo, o que deixa a conta mais bonita do que é. Tudo é refeito com <span class="mono">python3 unit_economics.py</span>.</p>
+
+  <h3>Para onde vai cada dólar de uma venda</h3>
+  <div class="legend"><span><i style="background:#6B7A99"></i>custos variáveis</span><span><i style="background:var(--warn)"></i>CAC (anúncio)</span><span><i style="background:var(--good)"></i>sobra após CAC</span><span><i style="background:var(--fg);width:3px"></i>preço de venda</span></div>
+  <div class="bars">
+    <div class="bar-row"><div class="lab"><strong>Pessimista</strong><br><span class="src">preço US$59 · sobra −US$40,23</span></div>
+      <div class="track ov" style="height:34px"><div class="seg s-var" style="left:0;width:53.8%">US$59,23</div><div class="seg s-cac" style="left:53.8%;width:36.4%">CAC US$40</div><div class="pm" style="left:53.6%" title="preço US$59"></div></div></div>
+    <div class="bar-row"><div class="lab"><strong>Base</strong><br><span class="src">preço US$69 · sobra −US$0,25</span></div>
+      <div class="track ov" style="height:34px"><div class="seg s-var" style="left:0;width:40.2%">US$44,25</div><div class="seg s-cac" style="left:40.2%;width:22.7%">CAC US$25</div><div class="pm" style="left:62.7%" title="preço US$69"></div></div></div>
+    <div class="bar-row"><div class="lab"><strong>Otimista</strong><br><span class="src">preço US$79 · sobra +US$33,76</span></div>
+      <div class="track ov" style="height:34px"><div class="seg s-var" style="left:0;width:30.2%">US$33,24</div><div class="seg s-cac" style="left:30.2%;width:10.9%">US$12</div><div class="seg s-gp" style="left:41.1%;width:30.7%">sobra US$33,76</div><div class="pm" style="left:71.8%" title="preço US$79"></div></div></div>
+  </div>
+  <p class="note">A escala é a mesma nas três barras (de US$0 a US$110). A linha preta marca o preço. Quando o custo variável mais o CAC passam da linha, a venda dá prejuízo (pessimista). No base eles encostam na linha: o resultado é praticamente zero.</p>
+  <div class="grid g3">
+    <div class="kpi"><div class="n">36%</div><div class="l">margem bruta no base (US$24,75 de US$69).</div></div>
+    <div class="kpi"><div class="n">0,99</div><div class="l">LTV:CAC no base. O guia considera abaixo de 1,5 ruim e 3 ou mais saudável.</div></div>
+    <div class="kpi"><div class="n">727 un.</div><div class="l">para pagar os custos fixos de US$18 mil com a margem bruta do base.</div></div>
+  </div>
+
+  <h3 style="margin-top:22px">O que mais mexe no resultado</h3>
+  <p class="sub">Variando cada entrada em 20% para cima e para baixo, no cenário base. Efeito na sobra por unidade.</p>
+  <div class="bars" style="gap:8px">
+    <div class="tor"><span>Preço</span><div class="tr"><div class="mid"></div><i style="left:20%;width:60%;background:var(--accent)"></i></div><span class="mono">±US$12,71</span></div>
+    <div class="tor"><span>Peças (BOM)</span><div class="tr"><div class="mid"></div><i style="left:37.5%;width:25%;background:var(--accent);opacity:.8"></i></div><span class="mono">±US$5,28</span></div>
+    <div class="tor"><span>CAC</span><div class="tr"><div class="mid"></div><i style="left:38.2%;width:23.6%;background:var(--accent);opacity:.8"></i></div><span class="mono">±US$5,00</span></div>
+    <div class="tor"><span>Envio ao cliente</span><div class="tr"><div class="mid"></div><i style="left:46.7%;width:6.6%;background:var(--accent);opacity:.6"></i></div><span class="mono">±US$1,40</span></div>
+    <div class="tor"><span>Tarifa</span><div class="tr"><div class="mid"></div><i style="left:47.6%;width:4.7%;background:var(--accent);opacity:.6"></i></div><span class="mono">±US$1,00</span></div>
+  </div>
+  <div class="concl"><b>O número a validar primeiro é o preço que o curador paga.</b>Ele decide mais do que as peças ou o custo de anúncio. A tabela mostra onde a conta atravessa o zero.</div>
+  <div class="tw"><table>
+    <tr><th class="num">Preço</th><th class="num">Lucro bruto</th><th class="num">Sobra após CAC de US$25</th><th>Leitura</th></tr>
+    <tr><td class="num">US$49,99 (Emodo)</td><td class="num">US$7,24</td><td class="num" style="color:var(--bad)">−US$17,76</td><td>o negócio nunca se paga com anúncio</td></tr>
+    <tr><td class="num">US$59</td><td class="num">US$15,54</td><td class="num" style="color:var(--bad)">−US$9,46</td><td></td></tr>
+    <tr><td class="num">US$69</td><td class="num">US$24,75</td><td class="num" style="color:var(--bad)">−US$0,25</td><td>quase zero</td></tr>
+    <tr><td class="num">US$79</td><td class="num">US$33,96</td><td class="num" style="color:var(--good)">+US$8,96</td><td>primeiro preço que sobra algo</td></tr>
+    <tr><td class="num">US$89</td><td class="num">US$43,17</td><td class="num" style="color:var(--good)">+US$18,17</td><td></td></tr>
+    <tr><td class="num">US$99</td><td class="num">US$52,38</td><td class="num" style="color:var(--good)">+US$27,38</td><td></td></tr>
+  </table></div>
+
+  <h3>Caixa acumulado em 18 meses</h3>
+  <p class="sub">Meses 1 a 6: construir e certificar. Mês 8: crowdfunding fecha. Mês 10: paga a fábrica. Mês 12: entrega. Meses 13 a 18: venda direta.</p>
+  <div class="legend"><span><i style="background:var(--bad)"></i>pessimista</span><span><i style="background:var(--accent)"></i>base</span><span><i style="background:var(--good)"></i>otimista</span></div>
+  <div class="chartwrap"><svg viewBox="0 0 760 380" role="img" aria-label="Caixa acumulado em 18 meses nos três cenários"><line class="gl" x1="64" x2="736" y1="321.8" y2="321.8"/><text x="56" y="325.8" text-anchor="end">-50 mil</text><line class="gl" x1="64" x2="736" y1="250.9" y2="250.9"/><text x="56" y="254.9" text-anchor="end">0 mil</text><line class="gl" x1="64" x2="736" y1="180.0" y2="180.0"/><text x="56" y="184.0" text-anchor="end">+50 mil</text><line class="gl" x1="64" x2="736" y1="109.1" y2="109.1"/><text x="56" y="113.1" text-anchor="end">+100 mil</text><line class="gl" x1="64" x2="736" y1="38.2" y2="38.2"/><text x="56" y="42.2" text-anchor="end">+150 mil</text><line class="zero" x1="64" x2="736" y1="250.9" y2="250.9"/><text x="736" y="244.9" text-anchor="end">US$0</text><text x="64.0" y="354" text-anchor="middle">1</text><text x="103.5" y="354" text-anchor="middle">2</text><text x="143.1" y="354" text-anchor="middle">3</text><text x="182.6" y="354" text-anchor="middle">4</text><text x="222.1" y="354" text-anchor="middle">5</text><text x="261.6" y="354" text-anchor="middle">6</text><text x="301.2" y="354" text-anchor="middle">7</text><text x="340.7" y="354" text-anchor="middle">8</text><text x="380.2" y="354" text-anchor="middle">9</text><text x="419.8" y="354" text-anchor="middle">10</text><text x="459.3" y="354" text-anchor="middle">11</text><text x="498.8" y="354" text-anchor="middle">12</text><text x="538.4" y="354" text-anchor="middle">13</text><text x="577.9" y="354" text-anchor="middle">14</text><text x="617.4" y="354" text-anchor="middle">15</text><text x="656.9" y="354" text-anchor="middle">16</text><text x="696.5" y="354" text-anchor="middle">17</text><text x="736.0" y="354" text-anchor="middle">18</text><text x="400" y="372" text-anchor="middle">mês</text><polyline class="ln l-bad" points="64.0,255.2 103.5,259.4 143.1,263.7 182.6,267.9 222.1,272.2 261.6,276.4 301.2,276.6 340.7,262.5 380.2,262.7 419.8,300.8 459.3,301.0 498.8,306.7 538.4,309.2 577.9,311.6 617.4,314.1 656.9,316.6 696.5,319.1 736.0,321.6"/><circle cx="736.0" cy="321.6" r="4" class="l-bad" style="fill:var(--surface);stroke-width:2.5"/><polyline class="ln l-base" points="64.0,255.2 103.5,259.4 143.1,263.7 182.6,267.9 222.1,272.2 261.6,276.4 301.2,276.6 340.7,205.5 380.2,205.8 419.8,264.0 459.3,264.3 498.8,279.3 538.4,279.5 577.9,279.8 617.4,280.0 656.9,280.3 696.5,280.6 736.0,280.8"/><circle cx="736.0" cy="280.8" r="4" class="l-base" style="fill:var(--surface);stroke-width:2.5"/><polyline class="ln l-good" points="64.0,255.2 103.5,259.4 143.1,263.7 182.6,267.9 222.1,272.2 261.6,276.4 301.2,276.6 340.7,43.3 380.2,43.5 419.8,132.1 459.3,132.3 498.8,162.2 538.4,148.1 577.9,131.8 617.4,113.0 656.9,91.4 696.5,66.4 736.0,37.8"/><circle cx="736.0" cy="37.8" r="4" class="l-good" style="fill:var(--surface);stroke-width:2.5"/><text class="tx-good" x="728.0" y="29.8" text-anchor="end">+US$150 mil</text><text class="tx-base" x="728.0" y="272.8" text-anchor="end">−US$21 mil</text><text class="tx-bad" x="728.0" y="337.6" text-anchor="end">−US$50 mil</text><text x="340.7" y="32" text-anchor="middle">crowdfunding fecha</text><text x="419.8" y="154.1" text-anchor="middle" style="display:none"></text></svg></div>
+  <div class="grid g3">
+    <div class="card"><h4>Pessimista</h4><p>Termina em −US$49.864 e ainda caindo. Nunca fica positivo.</p></div>
+    <div class="card"><h4>Base</h4><p>O crowdfunding deixa o caixa positivo por dois meses; pagar a fábrica e entregar consome tudo. Termina em −US$21.104 e não empata em 18 meses.</p></div>
+    <div class="card"><h4>Otimista</h4><p>Termina em +US$150.294. Positivo desde o mês 8 e sustentado a partir do 13.</p></div>
+  </div>
+
+  <h3 style="margin-top:22px">Veredito do modelo</h3>
+  <div class="grid g2">
+    <div class="card"><h3>O que precisa ser verdade</h3><ol style="padding-left:1.2em;margin:.3em 0"><li>Preço de US$79 ou mais sem perder o comprador.</li><li>CAC de US$12 a 15 ou menos, por comunidade e crowdfunding, não por anúncio.</li><li>Peças de US$16 a 22 em cerca de mil unidades, com orçamento real.</li></ol></div>
+    <div class="card"><h3>Números de corte</h3><ul><li>Se o curador só paga até uns US$50, o lucro bruto é de ~US$7 e o negócio nunca se paga com anúncio.</li><li>A US$69, se o CAC passar de ~US$25, a venda direta destrói caixa.</li></ul></div>
+  </div>
+  <p class="note">Também foi feito o Lean Canvas (arquivo à parte). Célula mais arriscada: receita somada à proposta de valor, porque não sabemos se alguém paga US$79 quando o Emodo custa US$49,99.</p>
+</section>
+
+<!-- ============ GTM ============ -->
+<section id="gtm">
+  <header><span class="step">ETAPA 7</span><h2>Entrada no mercado</h2><span class="chip c-warn">plano de validação, desatualizado após a revisão</span></header>
+  <p class="sub">Pergunta: como chegar ao cliente com pouco dinheiro, e o que vender primeiro?</p>
+  <div class="concl"><b>Conclusão da etapa</b>Como não há validação, o plano é de apostas pequenas com critério de parada, não de crescimento. Lista de espera com depósito vem antes de qualquer campanha de crowdfunding.</div>
+  <div class="grid g2">
+    <div class="card"><h3>Posicionamento (método Dunford)</h3>
+      <p><strong>Alternativas reais:</strong> merch fixo, exibição digital grátis, não mostrar nada e badge manual.</p>
+      <p><strong>O que só nós temos:</strong> mostra sozinho a capa do que toca; luz "tocando agora" contra "favorito"; objeto de identidade musical. Cortei "mostra a capa", porque Emodo e genéricos também mostram, à mão.</p>
+      <p><strong>Frase de posicionamento:</strong> "For young music lovers in the US whose taste changes faster than their band tees, Social Music is a music badge that shows the album you're playing right now, automatically. Unlike band merch or digital badges you update by hand, it changes with every album, no app to open."</p></div>
+    <div class="card"><h3>Mensagem</h3>
+      <p><strong>Promessa:</strong> "Wear what you're playing."</p>
+      <ul><li>Seu gosto real de hoje, não a camiseta de dois anos atrás.</li><li>As pessoas sabem que é real (a luz).</li><li>Nada para administrar. Não prometer bateria até medir.</li></ul>
+      <p class="src">Frases de clientes e depoimentos: vazio, e assim fica até as entrevistas.</p></div>
+  </div>
+  <h3 style="margin-top:22px">Canais, com nota de 1 a 5 em quatro critérios (julgamento meu)</h3>
+  <div class="tw"><table>
+    <tr><th>Canal</th><th class="num">Presença do cliente</th><th class="num">CAC vs preço</th><th class="num">Rapidez do sinal</th><th class="num">Encaixe com você</th><th class="num">Total</th></tr>
+    <tr class="us"><td><strong>Vídeo curto orgânico</strong></td><td class="num">4</td><td class="num">4</td><td class="num">4</td><td class="num">4</td><td class="num"><strong>16</strong></td></tr>
+    <tr class="us"><td><strong>Comunidades de música</strong></td><td class="num">5</td><td class="num">5</td><td class="num">3</td><td class="num">3</td><td class="num"><strong>16</strong></td></tr>
+    <tr><td>Microcriadores de vinil e indie</td><td class="num">4</td><td class="num">3</td><td class="num">3</td><td class="num">3</td><td class="num">13</td></tr>
+    <tr><td>Crowdfunding</td><td class="num">3</td><td class="num">3</td><td class="num">2</td><td class="num">3</td><td class="num">11</td></tr>
+    <tr><td>PR / Product Hunt</td><td class="num">2</td><td class="num">4</td><td class="num">3</td><td class="num">2</td><td class="num">11</td></tr>
+    <tr><td>Anúncio pago</td><td class="num">3</td><td class="num">1</td><td class="num">4</td><td class="num">2</td><td class="num">10</td></tr>
+    <tr><td>Lojas de discos e merch de shows</td><td class="num">4</td><td class="num">3</td><td class="num">1</td><td class="num">1</td><td class="num">9</td></tr>
+    <tr><td>Amazon</td><td class="num">2</td><td class="num">2</td><td class="num">3</td><td class="num">2</td><td class="num">9</td></tr>
+  </table></div>
+  <div class="grid g3">
+    <div class="card"><h4>Principais</h4><p>Vídeo curto orgânico e comunidades de música, levando a uma lista de espera.</p></div>
+    <div class="card"><h4>Experimental</h4><p>Microcriadores, só depois de existir protótipo.</p></div>
+    <div class="card"><h4>Fora, por enquanto</h4><p>Anúncio pago, até o CAC medido ficar abaixo de US$15. Crowdfunding vira o momento de converter a lista, não um canal.</p></div>
+  </div>
+  <h3 style="margin-top:22px">Preço e experimentos</h3>
+  <div class="grid g2">
+    <div class="card"><h3>Preço inicial: US$79 (hipótese)</h3><p>Abaixo disso o modelo não fecha, mesmo com CAC baixo. É acima do Emodo de propósito: o automático e o design precisam justificar a diferença.</p><p>Teste planejado: página com US$59 e US$79 lado a lado e depósito reembolsável. <span class="chip c-bad">revisado</span> A revisão derrubou esse teste: com ~50 pessoas por lado ele não prova nada. Passou a ser um preço único de US$79.</p></div>
+    <div class="card"><h3>Três experimentos, cada um com limite e critério de parada</h3><ul>
+      <li><strong>Vídeos:</strong> 10 vídeos de 10 a 20 segundos. Para se tiver menos de 30 inscritos depois deles.</li>
+      <li><strong>Comunidades:</strong> 5 posts de pergunta e 30 DMs. Para se for banido ou tiver menos de 3 respostas.</li>
+      <li><strong>Microcriadores:</strong> 5 protótipos de presente. Para sem posts em 3 semanas.</li></ul>
+      <p class="src">Os limiares são escolhas minhas, sem benchmark com fonte.</p></div>
+  </div>
+  <p class="note">Lançamento aqui significa abrir uma lista de espera com depósito, não lançar o produto. Eu notei uma contradição de datas entre a lista (dezembro) e os vídeos do protótipo (fevereiro), e a revisão pediu para refazer o plano com a nova ordem.</p>
+</section>
+
+<!-- ============ REVISÃO ============ -->
+<section id="revisao">
+  <header><span class="step">ETAPA 8</span><h2>Revisão: o advogado do diabo</h2></header>
+  <p class="sub">Um agente de cabeça fresca, sem apego ao trabalho, recebeu as notas e a recomendação provisória e teve uma tarefa: achar o argumento mais forte de que estavam erradas.</p>
+  <div class="concl"><b>Veredito dele</b>"Sobrevive com rebaixamentos." Continuar barato é defensável, porque a perda máxima é pequena. Mas o desenho do plano estava ruim: o critério de março quase não podia reprovar, e o item mais caro e menos arriscado vinha antes do teste que pode matar a ideia.</div>
+  <div class="tw"><table>
+    <tr><th>#</th><th>Objeção</th><th>Gravidade</th><th>O que fiz</th></tr>
+    <tr><td>1</td><td>O critério de 31/03 não conseguia reprovar: o recrutamento já garantia "gastou antes", a pergunta 4 induz o "sim", o teste A/B com ~50 pessoas por lado é cara ou coroa e US$5 de depósito não é compromisso.</td><td><span class="chip c-bad">crítica</span></td><td>Aceita. Critério reescrito.</td></tr>
+    <tr><td>2</td><td>Ordem invertida: construir o protótipo automático (caro, risco baixo, projetos caseiros já provaram) antes de testar se alguém usa uma tela no peito (barato, pode matar).</td><td><span class="chip c-bad">crítica</span></td><td>Aceita. Teste de uso com badge manual vem primeiro.</td></tr>
+    <tr><td>3</td><td>O tempo não fecha: ~120 a 220 horas de trabalho contra 105 a 210 disponíveis até março.</td><td><span class="chip c-warn">major</span></td><td>Aceita. Cortei o protótipo automático do período. Sem dados em 31/03, o padrão é parar.</td></tr>
+    <tr><td>4</td><td>O modo ao vivo se contradiz: se ninguém lê o badge, o ao vivo vale pouco; se precisam ler, a tela de ~28 mm é pequena a 1 ou 2 metros.</td><td><span class="chip c-warn">major</span></td><td>Aceita como hipótese a medir: registrar o tempo em "tocando agora" contra "favorito".</td></tr>
+    <tr><td>5</td><td>Mesmo passando, não há como financiar: US$18 mil sem fonte, o Kickstarter não aceita criadores residentes no Brasil e a FCC exige um responsável nos EUA.</td><td><span class="chip c-warn">major</span></td><td>Aceita. Memo de meia página sobre rota antes de gastar com hardware. Fatos citados pelo agente, confiança média.</td></tr>
+    <tr><td>6</td><td>O quadrante vazio tem histórico de fracassos (Pins Collective, Playbutton, Tidbyt). Nem a Divoom provou a demanda pelo Emodo.</td><td><span class="chip c-mute">minor</span></td><td>Aceita. Acompanhar as avaliações do Emodo até março, de graça.</td></tr>
+  </table></div>
+  <h3>Coerência entre as etapas</h3>
+  <div class="grid g2">
+    <div class="card"><h4>Problemas achados</h4><ul>
+      <li>Entrada no mercado escolhe US$79, o modelo base usa US$69.</li>
+      <li>A meta do critério (100 inscritos) estava abaixo da meta do próprio plano de entrada (300).</li>
+      <li>Datas: lista em dezembro, mas os vídeos dependem do protótipo, só em fevereiro.</li></ul></div>
+    <div class="card"><h4>Coisas esquecidas sem teste</h4><ul><li>Recarga diária.</li><li>Alguém usar uma tela no corpo por semanas.</li><li>O constrangimento do modo ao vivo.</li></ul></div>
+  </div>
+  <h3 style="margin-top:22px">Como a ideia pode morrer</h3>
+  <div class="grid g3">
+    <div class="card"><h4>1 · O zumbi</h4><p>O critério "passa" em março com entrevistados vindos de r/vinyl e 11 depósitos de US$5, metade de conhecidos. Um ano de esforço vai para um protótipo e uma campanha que fecha com ~150 apoiadores, o que não paga molde, certificação nem o responsável nos EUA.</p></div>
+    <div class="card"><h4>2 · A vida real</h4><p>O protótipo funciona na mesa. No uso real dura 3 ou 4 horas, o iPhone perde a conexão e a capa de 28 mm passa despercebida. O próprio fundador para na segunda semana.</p></div>
+    <div class="card"><h4>3 · A Divoom</h4><p>A Divoom adiciona "tocando agora" ao Emodo por atualização de app a US$49,99, com varejo pronto. A esse preço o modelo dá ~US$7 de lucro bruto por unidade e o diferencial acaba.</p></div>
+  </div>
+  <h3 style="margin-top:22px">Recomendação final</h3>
+  <div class="gate">
+    <div class="go"><span class="chip c-good">seguir (persevere)</span><p style="margin-top:8px"><strong>Se, até 31/03/2027, as três coisas acontecerem:</strong></p><ul><li>Você e pelo menos 2 de 3 pessoas usam o badge 4 dias ou mais na segunda semana, sem largar pela recarga.</li><li>25 ou mais depósitos de US$20 ou mais, de desconhecidos, a US$79.</li><li>Existe uma rota escrita e plausível: plataforma de pré-venda, responsável FCC e fonte dos US$18 mil.</li></ul></div>
+    <div class="pv"><span class="chip c-warn">mudar de rumo (pivot)</span><p style="margin-top:8px">Se o uso passar, mas o tempo em "favorito" dominar o de "tocando agora". Aí o produto vira um badge fixo e simples, que compete com Emodo e clones a US$15 a 48. Repensar preço e formato, ou seguir só pelo software.</p></div>
+    <div class="kl"><span class="chip c-bad">parar (kill)</span><p style="margin-top:8px">Se o teste de uso falhar, ou se em 31/03 não houver dados. O que ficou aprendido e o código continuam seus. Parar limpo é vitória, não fracasso.</p></div>
+  </div>
+  <p class="note">Os limiares (4 dias, 25 depósitos, US$20) são escolhas de corte sugeridas pelo advogado do diabo, não benchmarks com fonte. Você pode ajustar, mas sem afrouxar a ponto de nada reprovar.</p>
+  <h3>O que mudaria a opinião do advogado do diabo</h3>
+  <ul><li>Um teste de uso de duas semanas com você e pelo menos três pessoas, com uso de 4 dias ou mais na segunda semana.</li><li>Dinheiro de desconhecidos fora da sua rede e fora dos grupos de onde vieram os entrevistados.</li><li>Um caminho de saída escrito e plausível.</li></ul>
+</section>
+
+<!-- ============ PRÓXIMOS ============ -->
+<section id="proximos">
+  <header><span class="step">AGORA</span><h2>Próximos 30 dias (até ~03/12/2026)</h2></header>
+  <ul class="check">
+    <li><div><strong>Comprar um badge manual barato</strong> (genérico ou Emodo, até €50) e usar por duas semanas, com você e 3 pessoas. Anotar dias usados e tempo em capa atual contra capa favorita.</div></li>
+    <li><div><strong>Fazer as 5 primeiras entrevistas</strong> com o roteiro revisado, metade fora de grupos de vinil.</div></li>
+    <li><div><strong>Escrever o memo de rota</strong> (meia página): plataforma de pré-venda aberta a quem mora no Brasil, entidade, responsável FCC nos EUA e fonte dos ~US$18 mil.</div></li>
+    <li><div><strong>Atualizar o modelo e o plano de entrada</strong> com preço de US$79 e as novas metas.</div></li>
+    <li><div><strong>Uma vez por mês</strong>, anotar as avaliações do Emodo (Amazon e Walmart) e as notas de versão do app Divoom, para ver se "tocando agora" aparece.</div></li>
+  </ul>
+  <p class="src">Próxima revisão: depois do teste de uso de duas semanas, ou em 31/03/2027, o que vier primeiro.</p>
+</section>
+
+<!-- ============ LIMITES ============ -->
+<section id="limites">
+  <header><span class="step">HONESTIDADE</span><h2>Limites deste trabalho</h2></header>
+  <div class="grid g2">
+    <div class="card"><h3>O que não foi verificado</h3><ul>
+      <li>Todos os custos do modelo são suposição; não há orçamento de fornecedor.</li>
+      <li>Os números de mercado dos EUA são extrapolação minha a partir de dados parciais.</li>
+      <li>Relatórios pagos (Luminate, MIDiA) não foram lidos; só resumos e imprensa.</li>
+      <li>Não se sabe se a Divoom já tem ou planeja "tocando agora" no Emodo.</li>
+      <li>SAR (teste de exposição a rádio) para Bluetooth de baixa potência no Brasil: não confirmado.</li></ul></div>
+    <div class="card"><h3>O que ficou bloqueado</h3><ul>
+      <li>Amazon, Walmart, archive.org e o Google Play bloquearam a leitura em várias páginas.</li>
+      <li>Uma tentativa de contornar o bloqueio da Amazon foi barrada pelo sistema de permissões, e o pesquisador não insistiu.</li>
+      <li>O projeto caseiro "musicBadge" não foi achado em lugar nenhum; só aparece em um resumo de busca.</li></ul></div>
+    <div class="card"><h3>Não substitui</h3><p>Isto não é conselho jurídico, tributário ou de certificação. As faixas de custo de FCC e Anatel vêm de consultorias que vendem o serviço. Peça orçamentos reais antes de qualquer decisão.</p></div>
+    <div class="card"><h3>Sobre o método</h3><p>Segui o texto do plugin "venture", mas ele não rodou por dentro desta sessão. Isso vale para os agentes: foram lançados por mim com as instruções originais do plugin. Se rodar o plugin de verdade no seu computador, os resultados devem seguir a mesma estrutura, mas o texto e os números podem diferir.</p></div>
+  </div>
+</section>
+
+<details style="margin-top:28px"><summary>Principais fontes por etapa</summary><div class="src">
+  <p><strong>Mercado.</strong> <a href="https://www.midiaresearch.com/blog/global-merchandise-market-to-hit-163-billion-by-2030-but-annual-growth-slows-to-16">MIDiA, merch global até 2030</a> · <a href="https://tools.prnewswire.com/en-us/live/20823/release/20260305EN02412">UMG, resultados de 2025</a> · <a href="https://www.musicweek.com/labels/read/riaa-us-revenue-hits-record-high-as-vinyl-sales-pass-1-billion/093770">RIAA, vinil acima de US$1 bi</a> · <a href="https://www.customink.com/blog/merch-booth-trends/">Custom Ink, gasto por fã</a> · <a href="https://techcrunch.com/2025/12/04/spotify-says-wrapped-2025-is-its-biggest-yet-with-200m-users-in-its-first-day">TechCrunch, Wrapped 2025</a> · <a href="https://www.idc.com/promo/wearablevendor/vendor">IDC, wearables 2025</a> · <a href="https://techcrunch.com/2025/02/18/humanes-ai-pin-is-dead/">TechCrunch, Humane AI Pin</a></p>
+  <p><strong>Regulação e importação.</strong> <a href="https://hubble.com/community/guides/how-using-a-pre-certified-wireless-module-simplifies-your-fcc-path/">Hubble, caminho FCC</a> · <a href="https://ib-lenhardt.com/kb/anatel-requirements">IB-Lenhardt, Anatel</a> · <a href="https://www.bakerdonelson.com/forced-labor-section-301-tariffs-imposed-to-replace-expiring-section-122-tariffs-what-importers-need-to-know">Baker Donelson, tarifas Section 301</a> · <a href="https://zonos.com/us-tariff-updates">Zonos, tarifas e correio</a> · <a href="https://forbes.com.br/geral/2026/09/taxa-das-blusinhas-veja-como-ficam-as-compras-internacionais/">Forbes Brasil, Remessa Conforme</a></p>
+  <p><strong>Concorrentes.</strong> <a href="https://divoom.com/products/divoom-emodo-pixel-art-display-badge">Divoom Emodo</a> · <a href="https://divoom.com/blogs/app-guide/pixoo-64-api-beginner-guide">Divoom, guia de API do Pixoo-64</a> · <a href="https://www.tuneshine.rocks">Tuneshine</a> · <a href="https://www.trustpilot.com/review/divoom.com">Trustpilot, Divoom</a> · <a href="https://droix.net/blogs/en-gb/nikko-dynamic-electronic-badge-ebadge-review/">DROIX, NIKKO</a> · <a href="https://www.kicktraq.com/projects/pinscollective/pins-collective/">Kicktraq, Pins Collective</a> · <a href="https://github.com/ralihachev/MusicStation">MusicStation</a></p>
+  <p><strong>Crowdfunding de hardware.</strong> <a href="https://www.cambridge.org/core/journals/design-science/article/identifying-challenges-in-crowdfunded-product-development-a-review-of-kickstarter-projects/F2659234936B8349EAF5AFCFBA2199E8">Jensen e Özkil, 2018</a> · <a href="https://repository.upenn.edu/mgmt_papers/210">Mollick, entrega no Kickstarter, 2015</a></p>
+  <p><strong>Plugin.</strong> <a href="https://github.com/heyparsadev/claude-venture-plugin">claude-venture-plugin</a> (licença MIT).</p>
+  <p>Cada nota de pesquisa tem a lista completa de links, na pasta <span class="mono">ventures/social-music/</span> do repositório.</p>
+</div></details>
+
+<footer>Gerado em 03/11/2026 a partir dos arquivos de <span class="mono">ventures/social-music/</span>. Todos os números de mercado, custo e preço são estimativas não verificadas, salvo indicação.</footer>
+</div>
