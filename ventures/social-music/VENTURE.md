@@ -18,7 +18,7 @@
 | Competitor analysis (`/venture:competitors`) | done 2026-11-03 | 03-competitors/competitive-analysis-2026-11-03.md | 2026-11-03 |
 | PMF assessment (`/venture:pmf`) | done 2026-11-03 (Mode A: plano; PMF não mensurável) | 04-pmf/pmf-measurement-plan-2026-11-03.md | 2026-11-03 |
 | GTM strategy (`/venture:gtm`) | not started | — | — |
-| Business model (`/venture:model`) | not started | — | — |
+| Business model (`/venture:model`) | done 2026-11-03 | 06-model/business-model-2026-11-03.md | 2026-11-03 |
 | Venture review (`/venture:review`) | not started | — | — |
 
 <!-- Status values: not started | in progress | done YYYY-MM-DD | stale (needs refresh) -->
@@ -54,6 +54,10 @@
 - [competitors, 2026-11-03] Tuneshine: fundador solo, US$199,99, vende como decoração/presente; capas faltando via last.fm (~30% para um usuário) (perfil, med).
 - [competitors, 2026-11-03] Precedente: pin com tela (Pins Collective ~2018) foi descrito como "resolve um problema que ninguém tem" (TheNextWeb, low-med).
 - [competitors, 2026-11-03] Onde ganhar: automático sem abrir app; objeto de identidade musical (não fandom); confiabilidade. Não competir em preço com clones nem em versatilidade com a Divoom (análise própria).
+- [model, 2026-11-03] Base (US$69, BOM US$22, CAC US$25): lucro bruto US$24,75/un (36%), LTV:CAC 0,99, sobra após CAC −US$0,25 — modelo não funciona ainda; só o otimista (US$79, BOM US$16, CAC US$12) fecha. Todos os custos são suposições (low).
+- [model, 2026-11-03] Variável mais sensível: preço (±20% → ±US$12,71/un). Ao preço do Emodo (US$49,99), lucro bruto ~US$7/un.
+- [model, 2026-11-03] Kill numbers: preço máximo aceito ≤ ~US$50 → nunca se paga com anúncio; CAC > ~US$25 a US$69 → venda direta destrói caixa.
+- [model, 2026-11-03] Projeção 18 meses (com crowdfunding no mês 8): base termina em −US$21 mil e não empata; otimista termina em +US$150 mil. Custos fixos únicos ~US$18 mil; equilíbrio 727 un. no base.
 
 ## Open questions & riskiest assumptions
 
@@ -68,6 +72,10 @@
 
 - [ ] O curador de gosto variado aceita uma tela no corpo (não acha "cafona" ou "gimmick") — testar nas entrevistas mostrando fotos dos concorrentes só no fim, depois das perguntas Mom Test (adicionado por competitors).
 - [ ] A Divoom não lança "tocando agora" automático no Emodo nos próximos ~12 meses — acompanhar notas de versão do app Divoom mensalmente (adicionado por competitors).
+
+- [ ] O curador paga ≥ ~US$79 (acima do Emodo, US$49,99) por capa automática + design — testar com perguntas de gasto nas entrevistas e página de pré-venda com preço (adicionado por model).
+- [ ] É possível conquistar clientes a CAC ≤ ~US$12–15 por comunidades e crowdfunding — testar no gtm com experimentos de canal (adicionado por model).
+- [ ] BOM ≤ ~US$16–22 em ~1.000 unidades — pedir orçamento a 2–3 fornecedores (adicionado por model).
 
 ## Decision log
 
