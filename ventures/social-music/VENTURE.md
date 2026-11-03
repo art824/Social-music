@@ -14,7 +14,7 @@
 | Module | Status | Latest output | Updated |
 |--------|--------|---------------|---------|
 | Customer discovery (`/venture:customers`) | not started | — | — |
-| Market research (`/venture:market-research`) | not started | — | — |
+| Market research (`/venture:market-research`) | done 2026-11-03 | 02-market/market-research-2026-11-03.md | 2026-11-03 |
 | Competitor analysis (`/venture:competitors`) | not started | — | — |
 | PMF assessment (`/venture:pmf`) | not started | — | — |
 | GTM strategy (`/venture:gtm`) | not started | — | — |
@@ -35,6 +35,15 @@
 - [pre-venture, 2026-10-14] Mais próximo existente em formato: Divoom Emodo, badge de 1,8" com clipe, ~US$40, sem música sincronizada; Tuneshine, display de capa de mesa, US$199. (sites/reviews, med)
 - [pre-venture, 2026-10-14] API Web do Spotify em modo de desenvolvimento limitada a 5 usuários; cota ampliada exige empresa registrada e 250k MAU. A abordagem escolhida evita a API do Spotify (lê o "now playing" do sistema). (TechCrunch fev/2026, high)
 - [pre-venture, 2026-10-21] Bateria: estimativa própria (não medida) de ~2–4 h com LCD numa placa de desenvolvimento e bateria de 400 mAh; e-ink colorido gasta energia só ao redesenhar, mas leva ~19 s e pisca. (cálculo próprio + Waveshare, low/med)
+- [market-research, 2026-11-03] Sem número público de merch musical só dos EUA ou do Brasil; global ~US$16,3 bi em 2030 com crescimento de 1,6%/ano (MIDiA 2024, med); Universal merch €811 mi em 2025, estável (UMG, high).
+- [market-research, 2026-11-03] EUA 18–29: 55,3 mi pessoas (Census 2025, med-high); Brasil 18–29: 36,7 mi (Censo 2022, high).
+- [market-research, 2026-11-03] TAM EUA 18–29 (compra única) ~US$0,39–1,15 bi; SOM 3 anos ~7,7 mil–44 mil unidades (US$0,4–2,7 mi); otimista implausível vs comparáveis. Extrapolação própria (low).
+- [market-research, 2026-11-03] Divoom Emodo, badge com tela, US$49,99 desde jul/2026 — concorrente direto e âncora de preço (divoom.com, high).
+- [market-research, 2026-11-03] Físico como exibição: vinil EUA ~US$1,04 bi em 2025, 19º ano de alta (RIAA, high); 50% dos compradores sem toca-discos (Luminate 2023, med).
+- [market-research, 2026-11-03] Jovens 16–24 preferem acessórios e marca discreta "que só fã reconhece" (MIDiA 3T2025, med).
+- [market-research, 2026-11-03] Crowdfunding análogo (Pins Collective): 1.042 apoiadores, US$102 mil; hardware entrega no prazo em ≤32% dos casos (Kicktraq; Jensen & Özkil 2018, med).
+- [market-research, 2026-11-03] Entrada: FCC US$3–8 mil com módulo pré-certificado; Anatel R$6–50 mil e exige empresa brasileira; +12,5% tarifa sobre China nos EUA desde 24/07/2026 (várias, low–high).
+- [market-research, 2026-11-03] Segmento de entrada recomendado (decisão do fundador): "curadores" de gosto variado nos EUA, 18–29; fandoms como segundo teste.
 
 ## Open questions & riskiest assumptions
 
@@ -43,6 +52,9 @@
 - [ ] Pessoas pagam por um objeto físico que exibe o gosto musical, em vez de só compartilhar de graça (Wrapped, stories) — testar em entrevistas Mom Test sobre compras passadas de merch/pins/vinil e com uma página de pré-venda.
 - [ ] O usuário aceita carregar e recarregar o badge com frequência (LCD = diário; e-ink = mais raro, mas lento) — testar vestindo um protótipo por 2 semanas.
 - [ ] O modo "ao vivo" não constrange o usuário a ponto de desligar (músicas que ele não quer mostrar) — testar com os modos Favorito/Off no protótipo e contar quantas vezes ele esconde.
+
+- [ ] O modo ao vivo é o diferencial que faz alguém escolher este badge em vez do Divoom Emodo (US$49,99, pin fixo) — testar em entrevistas: como o entrevistado exibe hoje o que ouve e se o gosto dele muda muito (adicionado por market-research).
+- [ ] É possível vender a ~US$50–80 com margem saudável após tarifas, certificação e bateria — testar no módulo model com orçamento real de componentes (adicionado por market-research).
 
 ## Decision log
 
