@@ -81,3 +81,10 @@ Founder: Claude does the practical 3D modeling; founder does not need hands-on a
 
 ## Update 03/11/2026: venture plugin run
 Full venture process (plugin "venture" by Parsa, followed from its real source, MIT) is in `ventures/social-music/`. Verdict: PERSEVERE restructured — wear-test with a cheap manual badge first, then interviews, then a US$79 pre-sale with ≥US$20 deposits, plus a route-to-market memo; continue only if by 31/03/2027 the three conditions pass, otherwise stop. Model and GTM marked stale. All market numbers are unverified estimates.
+
+## Update 03/11/2026: founder reaction to the venture review
+- Founder idea (not decided): make it a necklace/pendant (Emodo-like, music-focused) instead of a clip. To be tested in the wear test with a cheap badge on a lanyard.
+- Founder argument: Tuneshine proves people pay ~US$200 for a polished object even though DIY/cheap versions exist; Divoom adding the feature would not remove the opening. Claude's pushback: it answers clones and DIY, not a branded US$50 incumbent; Tuneshine's buyers look older and gift-driven (inference), which clashes with the 18-29 target and with a US$79 price.
+- Founder plans to build in public on Instagram/TikTok with marketing friends.
+- Crowdfunding facts (checked 03/11/2026): Kickstarter lets individuals launch only from 25 countries (incl. France, US; not Brazil), requires residency plus government ID and a bank account in that country; hardware needs a working prototype, no photorealistic renders on the page. Indiegogo and Brazilian platforms (Catarse, Kickante, Benfeitoria) not confirmed for this use. MEI cap is R$81,000/year (increase pending), so a crowdfunding round would outgrow MEI.
+- Unresolved risks to carry: album-art terms of use for a commercial product; product name/trademark and social handle availability; buyer segment (young and cheap vs older and premium).
