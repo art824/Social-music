@@ -27,8 +27,8 @@ Seguir só com testes baratos e com data para parar: **31/03/2027**. Seguir se, 
 **Dinheiro e crowdfunding:** plataforma (Kickstarter não aceita residente no Brasil; Indiegogo não confirmado); onde o fundador residirá em abril/2027; quem paga os ~US$18 mil.
 **Legal:** direito de uso das capas (termos do iTunes); nome e marca ("Social Music" provavelmente genérico, não verificado); MEI serve para hardware importado?
 **Marketing:** nome e perfil social antes de montar audiência; música em vídeos; meta de lista de e-mail com depósito.
-**Brasil:** o que o Sebrae cobre e como entrar (docs/sebrae.md); abrir MEI agora ou em janeiro (custo do DAS mensal).
-**Organização:** montar um Notion (fundador pediu em 03/11/2026). Caminho a escolher: conectar o conector oficial do Notion (ao vivo) ou pacote de importação (CSV e Markdown). Não existe conector do Notion ligado nesta sessão.
+**Brasil:** fundador vai falar direto com o Sebrae (WhatsApp ou formulário; 0800 pode não funcionar do exterior). A chamada Startups Mineiras foi descartada por ele; não desenvolver. Living Hub (Sebrae MG, P7 Criativo, Centro de BH): ver docs/sebrae.md; custo e elegibilidade de estudante sem empresa não estão publicados, perguntar por e-mail. Abrir MEI agora ou em janeiro (custo do DAS mensal).
+**Organização:** Notion criado em 03/11/2026 (privado, "Social Music — Painel": Próximos passos + Tópicos em quadro). Regra do fundador: o repositório é a base principal e o Notion é só janela de leitura. Ao mudar uma decisão aqui, atualizar também o Notion (risco: os dois divergirem).
 
 ## Estacionado (não discutir agora)
 - Escolha de placa e compra de hardware; escolha entre alternativas de display.
