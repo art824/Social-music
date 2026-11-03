@@ -13,7 +13,7 @@
 
 | Module | Status | Latest output | Updated |
 |--------|--------|---------------|---------|
-| Customer discovery (`/venture:customers`) | not started | — | — |
+| Customer discovery (`/venture:customers`) | in progress (guia pronto; 0 entrevistas) | 01-discovery/interview-guide-2026-11-03.md | 2026-11-03 |
 | Market research (`/venture:market-research`) | done 2026-11-03 | 02-market/market-research-2026-11-03.md | 2026-11-03 |
 | Competitor analysis (`/venture:competitors`) | not started | — | — |
 | PMF assessment (`/venture:pmf`) | not started | — | — |
@@ -44,6 +44,8 @@
 - [market-research, 2026-11-03] Crowdfunding análogo (Pins Collective): 1.042 apoiadores, US$102 mil; hardware entrega no prazo em ≤32% dos casos (Kicktraq; Jensen & Özkil 2018, med).
 - [market-research, 2026-11-03] Entrada: FCC US$3–8 mil com módulo pré-certificado; Anatel R$6–50 mil e exige empresa brasileira; +12,5% tarifa sobre China nos EUA desde 24/07/2026 (várias, low–high).
 - [market-research, 2026-11-03] Segmento de entrada recomendado (decisão do fundador): "curadores" de gosto variado nos EUA, 18–29; fandoms como segundo teste.
+
+- [customers, 2026-11-03] Modo A concluído: hipótese de ICP e roteiro Mom Test (em inglês, para clientes nos EUA). Nenhuma entrevista feita ainda — nenhuma suposição validada. (próprio, high)
 
 ## Open questions & riskiest assumptions
 
