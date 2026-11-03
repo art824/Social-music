@@ -15,7 +15,7 @@
 |--------|--------|---------------|---------|
 | Customer discovery (`/venture:customers`) | in progress (guia pronto; 0 entrevistas) | 01-discovery/interview-guide-2026-11-03.md | 2026-11-03 |
 | Market research (`/venture:market-research`) | done 2026-11-03 | 02-market/market-research-2026-11-03.md | 2026-11-03 |
-| Competitor analysis (`/venture:competitors`) | not started | — | — |
+| Competitor analysis (`/venture:competitors`) | done 2026-11-03 | 03-competitors/competitive-analysis-2026-11-03.md | 2026-11-03 |
 | PMF assessment (`/venture:pmf`) | done 2026-11-03 (Mode A: plano; PMF não mensurável) | 04-pmf/pmf-measurement-plan-2026-11-03.md | 2026-11-03 |
 | GTM strategy (`/venture:gtm`) | not started | — | — |
 | Business model (`/venture:model`) | not started | — | — |
@@ -48,6 +48,12 @@
 - [customers, 2026-11-03] Modo A concluído: hipótese de ICP e roteiro Mom Test (em inglês, para clientes nos EUA). Nenhuma entrevista feita ainda — nenhuma suposição validada. (próprio, high)
 
 - [pmf, 2026-11-03] PMF não mensurável: 0 usuários. Plano: Sean Ellis com ≥30–40 testadores, dias usados por semana como retenção, % do tempo em cada modo; decisão 8 semanas após o 1º lote de protótipos. (próprio, high)
+- [competitors, 2026-11-03] Nenhum concorrente mostra automaticamente a capa do que está tocando num vestível. Emodo e genéricos exigem envio manual; Tuneshine é automático mas de mesa (perfis, med-high).
+- [competitors, 2026-11-03] Divoom Emodo (US$49,99, 1,8" 360×360, ~8 h anunciadas, 4 GB) mira anime/ídolos; o guia da própria Divoom diz que capa automática do Spotify exige automação fora do app (divoom.com, high). Ameaça alta: pode adicionar por software.
+- [competitors, 2026-11-03] Badges genéricos de 1,7–1,85" custam US$10–48; reclamações: pareamento, bateria real de 5–8 h, app confuso (reviews, med-low).
+- [competitors, 2026-11-03] Tuneshine: fundador solo, US$199,99, vende como decoração/presente; capas faltando via last.fm (~30% para um usuário) (perfil, med).
+- [competitors, 2026-11-03] Precedente: pin com tela (Pins Collective ~2018) foi descrito como "resolve um problema que ninguém tem" (TheNextWeb, low-med).
+- [competitors, 2026-11-03] Onde ganhar: automático sem abrir app; objeto de identidade musical (não fandom); confiabilidade. Não competir em preço com clones nem em versatilidade com a Divoom (análise própria).
 
 ## Open questions & riskiest assumptions
 
@@ -59,6 +65,9 @@
 
 - [ ] O modo ao vivo é o diferencial que faz alguém escolher este badge em vez do Divoom Emodo (US$49,99, pin fixo) — testar em entrevistas: como o entrevistado exibe hoje o que ouve e se o gosto dele muda muito (adicionado por market-research).
 - [ ] É possível vender a ~US$50–80 com margem saudável após tarifas, certificação e bateria — testar no módulo model com orçamento real de componentes (adicionado por market-research).
+
+- [ ] O curador de gosto variado aceita uma tela no corpo (não acha "cafona" ou "gimmick") — testar nas entrevistas mostrando fotos dos concorrentes só no fim, depois das perguntas Mom Test (adicionado por competitors).
+- [ ] A Divoom não lança "tocando agora" automático no Emodo nos próximos ~12 meses — acompanhar notas de versão do app Divoom mensalmente (adicionado por competitors).
 
 ## Decision log
 
