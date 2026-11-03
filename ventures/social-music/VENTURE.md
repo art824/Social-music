@@ -17,9 +17,9 @@
 | Market research (`/venture:market-research`) | done 2026-11-03 | 02-market/market-research-2026-11-03.md | 2026-11-03 |
 | Competitor analysis (`/venture:competitors`) | done 2026-11-03 | 03-competitors/competitive-analysis-2026-11-03.md | 2026-11-03 |
 | PMF assessment (`/venture:pmf`) | done 2026-11-03 (Mode A: plano; PMF não mensurável) | 04-pmf/pmf-measurement-plan-2026-11-03.md | 2026-11-03 |
-| GTM strategy (`/venture:gtm`) | done 2026-11-03 (validação, hipóteses) | 05-gtm/gtm-strategy-2026-11-03.md | 2026-11-03 |
-| Business model (`/venture:model`) | done 2026-11-03 | 06-model/business-model-2026-11-03.md | 2026-11-03 |
-| Venture review (`/venture:review`) | not started | — | — |
+| GTM strategy (`/venture:gtm`) | stale (needs refresh) — portão e datas revistos na review | 05-gtm/gtm-strategy-2026-11-03.md | 2026-11-03 |
+| Business model (`/venture:model`) | stale (needs refresh) — preço base US$69 ≠ GTM US$79 | 06-model/business-model-2026-11-03.md | 2026-11-03 |
+| Venture review (`/venture:review`) | done 2026-11-03 | venture-review-2026-11-03.md | 2026-11-03 |
 
 <!-- Status values: not started | in progress | done YYYY-MM-DD | stale (needs refresh) -->
 
@@ -61,6 +61,7 @@
 - [gtm, 2026-11-03] Posicionamento (hipótese): "music badge" que mostra sozinho o álbum que você está ouvindo; promessa "Wear what you're playing." Unlike merch/badges manuais.
 - [gtm, 2026-11-03] Canais: vídeo curto orgânico + comunidades de música → lista de espera; microcriadores como experimento; sem anúncio pago até CAC medido < US$15.
 - [gtm, 2026-11-03] Preço inicial hipótese US$79; teste A/B US$59 vs US$79 com depósito reembolsável de US$5; meta 300 inscritos e ≥10% de depósito; revisão 30 dias após abrir a lista.
+- [review, 2026-11-03] Advogado do diabo: SURVIVES WITH DOWNGRADES. Portão original não conseguia reprovar; ordem invertida (protótipo antes do teste de uso); tempo não fecha; Kickstarter não aceita criadores residentes no Brasil e FCC exige responsável nos EUA (citado pelo agente, med).
 
 ## Open questions & riskiest assumptions
 
@@ -82,6 +83,9 @@
 
 - [ ] Vídeos curtos do badge mudando sozinho geram inscrições sem mídia paga (≥2% de visitantes; ≥100 inscritos em 30 dias) — testar com 10 vídeos (adicionado por gtm).
 
+- [ ] Uma pessoa usa uma tela no corpo ≥4 dias/semana por 2 semanas sem largar pela recarga — testar com badge manual barato antes de qualquer protótipo (adicionado por review).
+- [ ] Existe rota de saída: plataforma de pré-venda aberta a residente no Brasil, responsável FCC nos EUA, fonte dos ~US$18 mil — escrever memo de meia página (adicionado por review).
+
 ## Decision log
 
 | Date | Decision | Rationale |
@@ -90,3 +94,4 @@
 | 2026-10-20 | Três modos no botão (Tocando agora / Favorito / a definir); luz acesa só em "tocando agora" | Quem vê sabe se é o que toca ou o favorito |
 | 2026-10-24 | Claude faz a modelagem 3D (build123d) | Fundador não precisa mexer na modelagem |
 | 2026-11-03 | Mercado: EUA primeiro, Brasil depois; relatórios em português; pesquisa de mercado profunda | Respostas do fundador no intake |
+| 2026-11-03 | PERSEVERE reestruturado: teste de uso com badge manual → entrevistas → pré-venda US$79 com depósito ≥US$20 → memo de rota; seguir só se até 31/03/2027 (a) ≥4 dias/sem na 2ª semana, (b) ≥25 depósitos de estranhos, (c) rota plausível; sem dados = parar | Ideia não testada, perda máxima pequena; advogado do diabo derrubou o portão original por não poder reprovar |
