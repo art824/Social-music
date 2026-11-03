@@ -1,0 +1,21 @@
+# Q3 — Tração e preços de gadgets comparáveis (market-researcher agent, 2026-11-03)
+
+Resposta direta: gadgets comparáveis custam de US$50 (badge) a US$200 (tela de mesa). Concorrente mais próximo: Divoom Emodo, badge vestível com tela colorida, lançado em jul/2026 a US$49,99. Nenhuma empresa do nicho divulga vendas auditadas. Projetos de "pin digital" no Kickstarter atraíram ~1.000 apoiadores, não dezenas de milhares. Spotify encerrou o Car Thing (~5 meses de venda, baixa contábil de €31 mi). Crowdfunding de hardware: no máximo 32% entregam no prazo.
+
+Evidências:
+- Divoom Emodo: US$49,99 (loja EUA); kits US$149,98–249,98; Japão ¥7.800, lançado 31/07/2026 (divoom.com; Oricon, high para preço). Sem dado de vendas/avaliações.
+- Divoom Pixoo: 16x16 US$69,99; Pixoo-Max US$99,99; Pixoo-64Ⅱ US$149,99 (divoom.com, med).
+- Divoom empresa: diz ">15 milhões de produtos" no total (declaração própria); receita anual estimada US$30–35 mi (Global Sources) vs US$15–25 mi (Similarweb) (low).
+- Tuneshine (tela 64x64 de mesa, madeira): US$199,99 / US$219,99; assinatura opcional US$1/mês; site mostra 125 avaliações média 4,8 e ~10% assinam (dados da empresa); preço confirmado por Yanko Design dez/2025 (high preço; med/low tração).
+- Pins Collective (pin digital com GIFs, análogo mais próximo): 1.042 apoiadores, US$102.066 (meta US$75k), ~US$98/apoiador; entregou com atraso; ~2.500 pins enviados até jan/2018 (Kicktraq; BackerKit, med). Destino da empresa desconhecido.
+- Mochila PIX (tela LED): 597 apoiadores / US$150.409 (2018); PIX Mini 343 / US$46.600 (2019) (Kicktraq; AIN, dados antigos).
+- Spine Music (tela de parede de capas): 149 apoiadores, £117.688 (ano/entrega não verificados, low).
+- Spotify Car Thing: US$90; produção parou jul/2022; baixa de €31 mi; desativado 09/12/2024; reembolso após ação coletiva; unidades nunca divulgadas (SEC 6-K; TechCrunch; 9to5Google, high).
+- tshirtOS (2012): só protótipo, "custo e fragilidade" (Fast Company 2015, med).
+- Entrega em crowdfunding: ~9% dos financiados nunca entregaram (Mollick 2015); 24,9% no prazo (Mollick 2013, ~48.500 projetos); hardware: ≤32% no prazo e 43% com >12 meses de atraso (Jensen & Özkil 2018, 144 projetos) (high para "a maioria atrasa"; dados de 7–13 anos).
+
+Lacunas: nenhuma unidade vendida verificada de nenhum produto; nenhuma campanha encerrada de badge que mostre a capa tocando agora (sem precedente, ou pequeno demais para aparecer); Sleevenote sem resultado verificável; sem avaliações publicadas do Emodo, tipo de tela/bateria não confirmados.
+
+Sugestão: acompanhar avaliações do Emodo nos próximos 3–6 meses — teste mais direto da demanda por badge.
+
+Fontes: https://divoom.com/products/divoom-emodo-pixel-art-display-badge · https://www.oricon.co.jp/pressrelease/2966605/ · https://divoom.com/collections/pixel-displays · https://divoom.com/de/pages/about-us · https://divoom.manufacturer.globalsources.com/company-profile_6008825032421.htm · https://www.similarweb.com/company/divoom.com/ · https://www.tuneshine.rocks · https://www.yankodesign.com/2025/12/04/this-200-display-finally-brings-album-art-back-to-your-home/amp/ · https://www.kicktraq.com/projects/pinscollective/pins-collective/ · https://pins-collective-igg.backerkit.com/hosted_preorders/project_updates · https://www.kicktraq.com/projects/pixbackpack/pix-the-first-smart-animative-backpack/ · https://en.ain.ua/2019/07/08/pix-raises-46k · https://www.kicktraq.com/projects/amorim/spine-music/ · https://www.sec.gov/Archives/edgar/data/1639920/000119312522202574/d387570dex991.htm · https://techcrunch.com/2022/07/27/spotify-exits-short-lived-car-thing-hardware-play-as-reports-q2-maus-of-433m-offsetting-russia-exit-and-service-outage · https://9to5google.com/2024/12/09/spotify-officially-kills-car-thing-remaining-units-no-longer-work/ · https://www.fastcompany.com/3048737/programmable-clothes-are-going-commercial · https://repository.upenn.edu/mgmt_papers/210 · https://icv2.com/articles/news/view/33231/kickstarter-study-reveals-failure-rate · https://papers.ssrn.com/abstract=2088298 · https://www.cambridge.org/core/journals/design-science/article/identifying-challenges-in-crowdfunded-product-development-a-review-of-kickstarter-projects/F2659234936B8349EAF5AFCFBA2199E8 · https://www.inverse.com/input/tech/sleevenote-is-a-700-dollar-music-player-for-album-art-nerds
