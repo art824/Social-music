@@ -28,7 +28,7 @@ Seguir só com testes baratos e com data para parar: **31/03/2027**. Seguir se, 
 **Legal:** direito de uso das capas (termos do iTunes); nome e marca ("Social Music" provavelmente genérico, não verificado); MEI serve para hardware importado?
 **Marketing:** nome e perfil social antes de montar audiência; música em vídeos; meta de lista de e-mail com depósito.
 **Brasil:** fundador vai falar direto com o Sebrae (WhatsApp ou formulário; 0800 pode não funcionar do exterior). A chamada Startups Mineiras foi descartada por ele; não desenvolver. Living Hub (Sebrae MG, P7 Criativo, Centro de BH): ver docs/sebrae.md; custo e elegibilidade de estudante sem empresa não estão publicados, perguntar por e-mail. Abrir MEI agora ou em janeiro (custo do DAS mensal).
-**Organização:** Notion criado em 03/11/2026 (privado, "Social Music — Painel": Próximos passos + Tópicos em quadro). Regra do fundador: o repositório é a base principal e o Notion é só janela de leitura. Ao mudar uma decisão aqui, atualizar também o Notion (risco: os dois divergirem).
+**Organização:** o fundador não gostou do Notion (03/11/2026): queria ver visualmente as trilhas e como se misturam, para focar numa por vez. Resposta: docs/mapa-visual.html (publicado como artefato privado), um mapa de 8 trilhas no tempo com foco em uma trilha. O Notion criado fica sem uso, a menos que ele peça. O repositório continua sendo a base principal; ao mudar uma decisão aqui, atualizar o mapa.
 
 ## Estacionado (não discutir agora)
 - Escolha de placa e compra de hardware; escolha entre alternativas de display.
@@ -50,6 +50,7 @@ Seguir só com testes baratos e com data para parar: **31/03/2027**. Seguir se, 
 | Decisões do fundador, linha do tempo técnica | docs/concept.md |
 | Sebrae: como entrar e o que oferece | docs/sebrae.md |
 | Processo "venture" completo (mercado, concorrentes, modelo, revisão) | ventures/social-music/ (comece pelo VENTURE.md) |
+| Mapa visual das trilhas (foco em uma por vez) | docs/mapa-visual.html |
 | Relatório visual em HTML | ventures/social-music/relatorio-visual.html (também publicado como artefato privado) |
 | Teste de capas de álbum | tools/art_coverage.py |
 | Modelo 3D (medidas provisórias) | cad/ |

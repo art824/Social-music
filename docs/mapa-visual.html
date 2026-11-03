@@ -1,0 +1,374 @@
+<title>Mapa Social Music</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout: trilhas (linhas) x tempo (colunas). Tocar numa trilha apaga o resto e abre o detalhe dela. */
+:root {
+  --bg: #eef1f6;
+  --surface: #ffffff;
+  --ink: #151a24;
+  --muted: #566074;
+  --line: #d3d9e4;
+  --accent: #2f4bff;
+  --accent-soft: #e4e9ff;
+  --decided: #1f7a4d;
+  --open: #a86b0c;
+  --parked: #7b8496;
+  --proposal: #7a47c9;
+  --f-display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --f-body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e121a; --surface: #171c27; --ink: #e8ecf4; --muted: #9aa4b8; --line: #2a3243;
+    --accent: #8197ff; --accent-soft: #1d2540; --decided: #4cc38a; --open: #e2a846; --parked: #7f889b; --proposal: #b690ff;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e121a; --surface: #171c27; --ink: #e8ecf4; --muted: #9aa4b8; --line: #2a3243;
+  --accent: #8197ff; --accent-soft: #1d2540; --decided: #4cc38a; --open: #e2a846; --parked: #7f889b; --proposal: #b690ff;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--f-body); font-size: 15px; line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 56px;
+}
+.wrap { max-width: 1180px; margin: 0 auto; display: flex; flex-direction: column; gap: 22px; }
+h1 { font-family: var(--f-display); font-weight: 700; font-size: clamp(28px, 5vw, 44px); line-height: 1.05; margin: 0; letter-spacing: -0.02em; text-wrap: balance; }
+.lede { margin: 6px 0 0; color: var(--muted); max-width: 62ch; }
+.mono { font-family: var(--f-mono); font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase; }
+
+/* porta */
+.gate { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 14px 16px; display: grid; gap: 10px; }
+.gate-top { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: baseline; }
+.gate-top b { font-family: var(--f-display); font-size: 18px; }
+.gate-top .mono { color: var(--proposal); }
+.gate ul { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 8px 18px; }
+.gate li { display: flex; gap: 8px; align-items: flex-start; min-width: 0; }
+.gate li::before { content: ""; flex: none; width: 9px; height: 9px; margin-top: 6px; background: var(--proposal); transform: rotate(45deg); }
+
+/* legenda */
+.legend { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; }
+.legend span { display: inline-flex; gap: 7px; align-items: center; color: var(--muted); font-size: 13px; }
+.legend label { display: inline-flex; gap: 7px; align-items: center; font-size: 13px; cursor: pointer; margin-left: auto; }
+
+/* marcadores de status: forma + cor */
+.mk { flex: none; width: 11px; height: 11px; margin-top: 5px; display: inline-block; }
+.s-decided .mk { background: var(--decided); border-radius: 50%; }
+.s-open .mk { border: 2px solid var(--open); border-radius: 50%; }
+.s-parked .mk { border: 2px dashed var(--parked); border-radius: 2px; }
+.s-proposal .mk { background: var(--proposal); transform: rotate(45deg) scale(.85); }
+.s-now .mk { background: var(--accent); border-radius: 2px; }
+
+/* mapa */
+.scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
+.map { min-width: 1040px; }
+.row { display: grid; grid-template-columns: 148px repeat(4, minmax(0, 1fr)); }
+.periods { border-bottom: 1px solid var(--line); background: var(--bg); position: sticky; top: 0; }
+.periods > div { padding: 10px 12px; color: var(--muted); }
+.periods > div b { display: block; color: var(--ink); font-family: var(--f-display); font-size: 15px; letter-spacing: 0; text-transform: none; }
+.periods > .gatecol { color: var(--proposal); box-shadow: inset 0 3px 0 var(--proposal); }
+
+.lane { border-bottom: 1px solid var(--line); transition: opacity .2s; }
+.lane:last-child { border-bottom: 0; }
+.lane-head {
+  all: unset; box-sizing: border-box; cursor: pointer; padding: 12px; display: flex; flex-direction: column; gap: 3px;
+  font-family: var(--f-display); font-weight: 600; font-size: 16px; line-height: 1.15; border-right: 1px solid var(--line);
+}
+.lane-head small { font-family: var(--f-mono); font-weight: 400; font-size: 11px; color: var(--muted); letter-spacing: .03em; }
+.lane-head:hover { background: var(--accent-soft); }
+.lane-head:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.lane-head .rel-tag { color: var(--accent); }
+.cell { padding: 10px 12px; display: flex; flex-direction: column; gap: 9px; min-width: 0; border-right: 1px solid var(--line); }
+.cell:last-child { border-right: 0; }
+.cell.gatecol { background: color-mix(in srgb, var(--proposal) 6%, transparent); }
+.node { display: flex; gap: 8px; align-items: flex-start; font-size: 13.5px; line-height: 1.38; min-width: 0; overflow-wrap: anywhere; }
+.node.s-now { font-weight: 500; }
+.node.s-parked { color: var(--muted); }
+.lane.focus { background: color-mix(in srgb, var(--accent) 5%, var(--surface)); box-shadow: inset 4px 0 0 var(--accent); }
+.lane.focus .lane-head { color: var(--accent); }
+.has-focus .lane:not(.focus):not(.rel) { opacity: .3; }
+.has-focus .lane.rel { opacity: .95; }
+
+.detail { grid-column: 1 / -1; border-top: 1px dashed var(--line); padding: 16px 16px 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px 28px; }
+.detail h3 { margin: 0 0 6px; font-family: var(--f-mono); font-weight: 500; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.detail p { margin: 0; }
+.detail .big { grid-column: 1 / -1; font-family: var(--f-display); font-size: 20px; line-height: 1.2; max-width: 52ch; text-wrap: balance; }
+.chips { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+.chip { all: unset; cursor: pointer; display: inline-flex; flex-direction: column; gap: 1px; padding: 6px 10px; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); max-width: 100%; }
+.chip b { font-family: var(--f-display); font-size: 14px; }
+.chip span { font-size: 12.5px; color: var(--muted); }
+.chip:hover { border-color: var(--accent); }
+.chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.src { font-family: var(--f-mono); font-size: 12px; color: var(--muted); overflow-wrap: anywhere; }
+.none { color: var(--muted); font-size: 13.5px; }
+.foot { color: var(--muted); font-size: 13.5px; max-width: 70ch; }
+
+/* telefone: trilhas empilhadas */
+@media (max-width: 760px) {
+  .map { min-width: 0; }
+  .scroll { overflow: visible; border: 0; background: none; display: flex; flex-direction: column; gap: 12px; }
+  .periods { display: none; }
+  .map { display: flex; flex-direction: column; gap: 12px; }
+  .lane { border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
+  .lane:last-child { border-bottom: 1px solid var(--line); }
+  .row { grid-template-columns: 1fr; }
+  .lane-head { border-right: 0; border-bottom: 1px solid var(--line); }
+  .cell { border-right: 0; padding: 10px 12px 2px; }
+  .cell:empty, .cell.empty { display: none; }
+  .cell::before { content: attr(data-period); font-family: var(--f-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  .cell:last-of-type { padding-bottom: 12px; }
+  .legend label { margin-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .lane { transition: none; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Mapa Social Music</h1>
+    <p class="lede">Oito trilhas, cada uma numa linha, ordenadas no tempo. Toque numa trilha: o resto apaga e aparece o que ela precisa e o que ela destrava. Uma trilha por vez.</p>
+  </header>
+
+  <section class="gate" aria-label="Porta de 31 de março de 2027">
+    <div class="gate-top"><b>Porta: 31/03/2027</b><span class="mono">proposta do Claude, não aceita por você</span></div>
+    <ul>
+      <li>Você e pelo menos 2 de 3 pessoas usam um badge manual por 4 dias ou mais na 2ª semana</li>
+      <li>25 depósitos de US$20 ou mais, de desconhecidos, a US$79</li>
+      <li>Existe uma rota escrita até o mercado: plataforma, responsável FCC, origem dos ~US$18 mil</li>
+    </ul>
+    <div class="none">Sem esses dados em 31/03, a proposta é parar.</div>
+  </section>
+
+  <div class="legend" id="legend"></div>
+
+  <div class="scroll">
+    <div class="map" id="map"></div>
+  </div>
+
+  <p class="foot">Assunto novo não entra na conversa: ele ganha uma posição como "estacionado" na trilha certa. O detalhe de cada ponto está nos arquivos do repositório (docs/estado-do-projeto.md é o mapa de texto).</p>
+</div>
+
+<script>
+var PERIODS = [
+  { id: 0, name: "Agora", sub: "nov–dez 2026" },
+  { id: 1, name: "Janeiro", sub: "fim do período na França" },
+  { id: 2, name: "Até a porta", sub: "31/03/2027", gate: true },
+  { id: 3, name: "Depois", sub: "só se passar" }
+];
+var STATUS = {
+  now: "Passo seu agora",
+  decided: "Decidido por você",
+  open: "Em aberto",
+  proposal: "Proposta do Claude",
+  parked: "Estacionado"
+};
+var LANES = [
+  { id: "teste", name: "Teste real", one: "Descobrir se alguém usa e quer pagar, antes de gastar com hardware.",
+    needs: [],
+    unlocks: [["comprador","as entrevistas mostram quem é o comprador"],["produto","o teste no cordão decide colar ou grampo"],["dinheiro","os depósitos provam se existe demanda"],["hardware","sem o teste passar, nenhuma placa é comprada"]],
+    src: "ventures/social-music/venture-review-2026-11-03.md" },
+  { id: "comprador", name: "Comprador e preço", one: "Quem compra e por quanto. A resposta decide quase todo o resto.",
+    needs: [["teste","entrevistas e uso real dão a evidência"]],
+    unlocks: [["produto","preço define tamanho e tela"],["dinheiro","preço define a meta em dólares"],["marketing","define para quem falar"]],
+    src: "ventures/social-music/venture-review-2026-11-03.md" },
+  { id: "produto", name: "Produto", one: "O que o badge é e faz.",
+    needs: [["comprador","tela e tamanho dependem do preço"],["teste","cordão contra grampo vem do teste"]],
+    unlocks: [["hardware","só se compra placa depois de o produto estar definido"]],
+    src: "docs/concept.md" },
+  { id: "dinheiro", name: "Dinheiro e crowdfunding", one: "Como financiar e onde vender. O valor de ~US$18 mil é estimativa do processo venture.",
+    needs: [["teste","depósitos provam demanda"],["brasil","entidade ou MEI para receber"],["comprador","preço define a meta"]],
+    unlocks: [["hardware","crowdfunding de hardware exige protótipo funcional"]],
+    src: "docs/pesquisa-acumulada.md" },
+  { id: "legal", name: "Legal", one: "Capas de álbum, nome, marca e regras para vender nos EUA.",
+    needs: [],
+    unlocks: [["marketing","o nome precisa estar checado antes de montar audiência"],["dinheiro","define o responsável FCC nos EUA"]],
+    src: "docs/concept.md" },
+  { id: "marketing", name: "Marketing", one: "Construir audiência em público com amigos de marketing.",
+    needs: [["legal","nome e marca antes de audiência"],["comprador","para quem falar"]],
+    unlocks: [["dinheiro","lista de e-mail com depósito alimenta o crowdfunding"]],
+    src: "docs/concept.md" },
+  { id: "brasil", name: "Brasil e Sebrae", one: "Apoio local: Sebrae, Living Hub, MEI.",
+    needs: [],
+    unlocks: [["dinheiro","define a entidade que recebe e vende"]],
+    src: "docs/sebrae.md" },
+  { id: "hardware", name: "Hardware e protótipo", one: "Placa, tela, bateria, carcaça. Nada a decidir antes da porta.",
+    needs: [["teste","passar na porta primeiro"],["produto","definições fechadas"],["dinheiro","verba"]],
+    unlocks: [],
+    src: "docs/pesquisa-acumulada.md" }
+];
+var NODES = [
+  ["teste",0,"now","Comprar badge manual barato (até €50). Usar 2 semanas com 3 pessoas, também no cordão"],
+  ["teste",0,"now","5 entrevistas, metade fora de grupos de vinil"],
+  ["teste",2,"proposal","Você + 2 de 3 pessoas usam o badge 4 dias ou mais"],
+  ["teste",2,"proposal","25 depósitos de US$20 ou mais, a US$79"],
+
+  ["comprador",0,"decided","EUA primeiro, Brasil depois"],
+  ["comprador",0,"open","Presente premium (US$99+, público mais velho) ou gadget para 18–29 (~US$79)"],
+
+  ["produto",0,"decided","Só exibição: um grampo, um botão, uma luz; sem touchscreen"],
+  ["produto",0,"decided","Três modos pelo botão; luz acesa só em “tocando agora”"],
+  ["produto",0,"decided","iPhone e Android"],
+  ["produto",0,"open","Terceiro modo; o que mostrar sem música"],
+  ["produto",0,"open","Colar/pendente ou grampo"],
+  ["produto",3,"open","Tela LCD ou e-ink; 28 mm ou 5 cm; carregamento"],
+  ["produto",3,"parked","Modelo 3D com medidas reais, firmware, app"],
+
+  ["dinheiro",0,"now","Memo de rota (meia página). Perguntar ao Kickstarter se residência na França vale"],
+  ["dinheiro",2,"open","Plataforma: Kickstarter não aceita residente no Brasil; Indiegogo não confirmado"],
+  ["dinheiro",2,"open","Onde você reside em abril/2027; quem paga os ~US$18 mil"],
+  ["dinheiro",3,"parked","Investidores, Anjos do Brasil, FINEP"],
+
+  ["legal",0,"open","Nome e marca: “Social Music” provavelmente genérico, não verificado"],
+  ["legal",1,"open","MEI serve para hardware importado?"],
+  ["legal",2,"open","Direito de uso das capas (iTunes: uso promocional)"],
+  ["legal",3,"parked","Patente, desenho industrial e marca"],
+
+  ["marketing",0,"decided","Construir em público (Instagram e TikTok) com amigos de marketing"],
+  ["marketing",0,"open","Nome e perfil social antes de montar audiência"],
+  ["marketing",2,"open","Música nos vídeos; meta de lista de e-mail com depósito"],
+
+  ["brasil",0,"now","Mensagem direta ao Sebrae (WhatsApp ou formulário; 0800 pode não funcionar do exterior)"],
+  ["brasil",0,"open","Living Hub: custo, e se estudante sem empresa entra (perguntar por e-mail)"],
+  ["brasil",0,"decided","Chamada Startups Mineiras descartada"],
+  ["brasil",1,"open","Abrir MEI agora ou em janeiro (DAS ~R$76–88 por mês)"],
+  ["brasil",1,"open","Visita presencial ao Sebrae e ao Living Hub em BH"],
+  ["brasil",3,"parked","Versão para o Brasil (Anatel, importação)"],
+
+  ["hardware",0,"decided","Não comprar hardware ainda"],
+  ["hardware",3,"parked","Escolha de placa e compra"]
+];
+
+var laneById = {}; LANES.forEach(function (l) { laneById[l.id] = l; });
+var focusId = null;
+var hideParked = false;
+
+function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
+
+function counts(laneId) {
+  var c = { now: 0, decided: 0, open: 0, proposal: 0, parked: 0 };
+  NODES.forEach(function (n) { if (!laneId || n[0] === laneId) c[n[2]]++; });
+  return c;
+}
+
+function renderLegend() {
+  var lg = document.getElementById("legend");
+  lg.innerHTML = "";
+  var c = counts();
+  ["now", "decided", "open", "proposal", "parked"].forEach(function (k) {
+    lg.appendChild(el("span", "s-" + k, '<i class="mk"></i>' + STATUS[k] + " (" + c[k] + ")"));
+  });
+  var lab = el("label", null, '<input type="checkbox" id="hp"> Esconder estacionados');
+  lg.appendChild(lab);
+  var cb = lab.querySelector("input");
+  cb.checked = hideParked;
+  cb.addEventListener("change", function () { hideParked = cb.checked; renderMap(); });
+}
+
+function relOf(id) {
+  var rel = {};
+  if (!id) return rel;
+  var l = laneById[id];
+  l.needs.forEach(function (x) { rel[x[0]] = "precisa de"; });
+  l.unlocks.forEach(function (x) { rel[x[0]] = rel[x[0]] ? "troca com" : "destrava"; });
+  // também mostra quem aponta para esta trilha
+  LANES.forEach(function (o) {
+    o.needs.forEach(function (x) { if (x[0] === id && !rel[o.id]) rel[o.id] = "destrava"; });
+    o.unlocks.forEach(function (x) { if (x[0] === id && !rel[o.id]) rel[o.id] = "precisa de"; });
+  });
+  return rel;
+}
+
+function chipFor(pair) {
+  var l = laneById[pair[0]];
+  var b = el("button", "chip", "<b>" + l.name + "</b><span>" + pair[1] + "</span>");
+  b.type = "button";
+  b.addEventListener("click", function () { setFocus(pair[0], true); });
+  return b;
+}
+
+function renderMap() {
+  var map = document.getElementById("map");
+  map.innerHTML = "";
+  map.classList.toggle("has-focus", !!focusId);
+  var rel = relOf(focusId);
+
+  var ph = el("div", "row periods");
+  ph.appendChild(el("div"));
+  PERIODS.forEach(function (p) {
+    ph.appendChild(el("div", p.gate ? "gatecol mono" : "mono", "<b>" + p.name + "</b>" + p.sub));
+  });
+  map.appendChild(ph);
+
+  LANES.forEach(function (l) {
+    var isFocus = l.id === focusId;
+    var lane = el("section", "lane" + (isFocus ? " focus" : "") + (rel[l.id] ? " rel" : ""));
+    lane.id = "lane-" + l.id;
+    var row = el("div", "row");
+    var c = counts(l.id);
+    var head = el("button", "lane-head", l.name + "<small>" + (c.open + c.now) + " a resolver</small>" +
+      (rel[l.id] ? '<small class="rel-tag">' + rel[l.id] + "</small>" : ""));
+    head.type = "button";
+    head.setAttribute("aria-expanded", isFocus ? "true" : "false");
+    head.addEventListener("click", function () { setFocus(isFocus ? null : l.id, false); });
+    row.appendChild(head);
+    PERIODS.forEach(function (p) {
+      var cell = el("div", "cell" + (p.gate ? " gatecol" : ""));
+      cell.setAttribute("data-period", p.name + " · " + p.sub);
+      var any = false;
+      NODES.forEach(function (n) {
+        if (n[0] !== l.id || n[1] !== p.id) return;
+        if (hideParked && n[2] === "parked") return;
+        any = true;
+        var node = el("div", "node s-" + n[2], '<i class="mk" role="img" aria-label="' + STATUS[n[2]] + '"></i><span>' + n[3] + "</span>");
+        cell.appendChild(node);
+      });
+      if (!any) cell.classList.add("empty");
+      row.appendChild(cell);
+    });
+    lane.appendChild(row);
+
+    if (isFocus) {
+      var d = el("div", "detail");
+      d.appendChild(el("p", "big", l.one));
+      var s1 = el("div"); s1.appendChild(el("h3", null, "Precisa de"));
+      var c1 = el("div", "chips");
+      if (l.needs.length) l.needs.forEach(function (x) { c1.appendChild(chipFor(x)); }); else c1.appendChild(el("p", "none", "Nada. Pode andar sozinha."));
+      s1.appendChild(c1); d.appendChild(s1);
+      var s2 = el("div"); s2.appendChild(el("h3", null, "Destrava"));
+      var c2 = el("div", "chips");
+      if (l.unlocks.length) l.unlocks.forEach(function (x) { c2.appendChild(chipFor(x)); }); else c2.appendChild(el("p", "none", "Nada depende dela."));
+      s2.appendChild(c2); d.appendChild(s2);
+      var s3 = el("div"); s3.appendChild(el("h3", null, "Detalhe no repositório")); s3.appendChild(el("p", "src", l.src)); d.appendChild(s3);
+      lane.appendChild(d);
+    }
+    map.appendChild(lane);
+  });
+}
+
+function setFocus(id, scroll) {
+  focusId = id;
+  try { history.replaceState(null, "", id ? "#" + id : location.pathname + location.search); } catch (e) {}
+  renderMap();
+  if (scroll && id) { var t = document.getElementById("lane-" + id); if (t) t.scrollIntoView({ behavior: "smooth", block: "center" }); }
+}
+
+window.addEventListener("hashchange", function () {
+  var h = location.hash.replace("#", "");
+  focusId = laneById[h] ? h : null; renderMap();
+});
+
+(function () {
+  var h = (location.hash || "").replace("#", "");
+  focusId = laneById[h] ? h : "teste";
+  renderLegend();
+  renderMap();
+})();
+</script>
