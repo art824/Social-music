@@ -78,3 +78,6 @@ Sebraetec, SENAI Laboratorio Aberto (BH), MEI registration; investors only after
 
 ## Update 24/10/2026: modeling decision
 Founder: Claude does the practical 3D modeling; founder does not need hands-on access. Claude uses build123d (already installed in the sandbox) and keeps the cad/ placeholder files. Real models wait until a display and board are chosen.
+
+## Update 03/11/2026: venture plugin run
+Full venture process (plugin "venture" by Parsa, followed from its real source, MIT) is in `ventures/social-music/`. Verdict: PERSEVERE restructured — wear-test with a cheap manual badge first, then interviews, then a US$79 pre-sale with ≥US$20 deposits, plus a route-to-market memo; continue only if by 31/03/2027 the three conditions pass, otherwise stop. Model and GTM marked stale. All market numbers are unverified estimates.
