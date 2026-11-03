@@ -24,7 +24,7 @@ Seguir só com testes baratos e com data para parar: **31/03/2027**. Seguir se, 
 
 ## Decisões em aberto (por tema)
 **Produto:** terceiro modo; quantos favoritos e como escolher (precisa de app); o que mostrar sem música tocando; tamanho (28 mm ou 5 cm); colar contra clipe; tela LCD ou e-ink; método de carregamento.
-**Comprador e preço:** premium de presente (como o Tuneshine, público mais velho, US$99+) ou gadget acessível para 18–29 (~US$79). A resposta decide quase tudo.
+**Comprador e preço:** premium de presente (como o Tuneshine, público mais velho; o Tuneshine custa US$199,99, não US$99+: corrigido em 03/11/2026) ou gadget acessível para 18–29 (~US$79). A resposta decide quase tudo.
 **Dinheiro e crowdfunding:** plataforma (Kickstarter não aceita residente no Brasil; Indiegogo não confirmado); onde o fundador residirá em abril/2027; quem paga os ~US$18 mil.
 **Legal:** direito de uso das capas (termos do iTunes); nome e marca ("Social Music" provavelmente genérico, não verificado); MEI serve para hardware importado?
 **Marketing:** nome e perfil social antes de montar audiência; música em vídeos; meta de lista de e-mail com depósito.
@@ -39,7 +39,7 @@ Seguir só com testes baratos e com data para parar: **31/03/2027**. Seguir se, 
 - Versão para o Brasil (Anatel, importação).
 
 ## Próximos passos (não mais que 3)
-1. Estudo EUA contra Brasil (pedido do fundador em 03/11/2026, em andamento): regras, hardware, distribuição, impostos, estrutura legal, demanda e idioma do conteúdo. Saída: ventures/social-music/07-eua-vs-brasil/. Decide idioma do conteúdo, plataforma de crowdfunding e entidade. A decisão é dele.
+1. Estudo EUA contra Brasil: pronto em 03/11/2026 (ventures/social-music/07-eua-vs-brasil/, comece pelo 00-comparacao.md). Falta o fundador decidir país de venda, idioma do conteúdo e onde abrir a empresa; são três decisões separadas. Achado principal: a certificação do rádio (FCC ou Anatel) custa mais que todo o orçamento de €500 em qualquer país.
 2. Planejar o protótipo (só depois do estudo; não desenvolver agora).
 3. Mensagem direta ao Sebrae (ele envia).
 Cancelados por decisão do fundador: 5 entrevistas e teste do badge comprado. A condição (a) da porta de 31/03/2027 falava de badge manual e precisa ser reescrita para o protótipo.
