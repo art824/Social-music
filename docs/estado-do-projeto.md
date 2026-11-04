@@ -32,6 +32,7 @@ Seguir só com testes baratos e com data para parar: **31/03/2027**. Seguir se, 
 **Organização:** o fundador não gostou do Notion (03/11/2026): queria ver visualmente as trilhas e como se misturam, para focar numa por vez. Resposta: docs/mapa-visual.html (publicado como artefato privado), um mapa de 8 trilhas no tempo com foco em uma trilha. O Notion criado fica sem uso, a menos que ele peça. O repositório continua sendo a base principal; ao mudar uma decisão aqui, atualizar o mapa.
 
 ## Estacionado (não discutir agora)
+- Certificação FCC/Anatel, país de venda, empresa e crowdfunding. Estudo pronto em ventures/social-music/07-eua-vs-brasil/. O fundador deixou de lado em 04/11/2026: só vale se o negócio der muito certo. Risco registrado: a certificação custa mais que o orçamento de €500 e pode decidir se o negócio existe.
 - Escolha de placa e compra de hardware; escolha entre alternativas de display.
 - Modelo 3D com medidas reais; firmware; app.
 - Investidores, Anjos do Brasil, FINEP e outros apoios públicos.
@@ -39,10 +40,10 @@ Seguir só com testes baratos e com data para parar: **31/03/2027**. Seguir se, 
 - Versão para o Brasil (Anatel, importação).
 
 ## Próximos passos (não mais que 3)
-1. Estudo EUA contra Brasil: pronto em 03/11/2026 (ventures/social-music/07-eua-vs-brasil/, comece pelo 00-comparacao.md). Falta o fundador decidir país de venda, idioma do conteúdo e onde abrir a empresa; são três decisões separadas. Achado principal: a certificação do rádio (FCC ou Anatel) custa mais que todo o orçamento de €500 em qualquer país.
-2. Planejar o protótipo (só depois do estudo; não desenvolver agora).
+1. Construir o protótipo próprio para uso pessoal e conteúdo. Ainda sem placa escolhida e sem plano técnico; o Claude propõe quando o fundador pedir.
+2. Começar a documentar nas redes. Antes: escolher o idioma dos posts e checar o nome (há uma marca "SOCIALMUSIC" na classe 9 em nome de Mix-Tape Partners LLC, só em fonte comercial).
 3. Mensagem direta ao Sebrae (ele envia).
-Cancelados por decisão do fundador: 5 entrevistas e teste do badge comprado. A condição (a) da porta de 31/03/2027 falava de badge manual e precisa ser reescrita para o protótipo.
+Cancelados por decisão do fundador: 5 entrevistas e teste do badge comprado. A condição (a) da porta de 31/03/2027 precisa ser reescrita para o protótipo.
 
 ## Onde está cada coisa
 | O quê | Arquivo |
