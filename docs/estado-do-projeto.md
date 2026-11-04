@@ -40,7 +40,7 @@ Seguir só com testes baratos e com data para parar: **31/03/2027**. Seguir se, 
 - Versão para o Brasil (Anatel, importação).
 
 ## Próximos passos (não mais que 3)
-1. Construir o protótipo próprio para uso pessoal e conteúdo. Ainda sem placa escolhida e sem plano técnico; o Claude propõe quando o fundador pedir.
+1. Construir o protótipo próprio para uso pessoal e conteúdo. Proposta de etapas, peças e custos em docs/prototipo-plano.md (nada decidido, nada comprado). Pergunta pendente: onde imprimir (impressora ou fablab na França?).
 2. Começar a documentar nas redes. Antes: escolher o idioma dos posts e checar o nome (há uma marca "SOCIALMUSIC" na classe 9 em nome de Mix-Tape Partners LLC, só em fonte comercial).
 3. Mensagem direta ao Sebrae (ele envia).
 Cancelados por decisão do fundador: 5 entrevistas e teste do badge comprado. A condição (a) da porta de 31/03/2027 precisa ser reescrita para o protótipo.
@@ -49,6 +49,8 @@ Cancelados por decisão do fundador: 5 entrevistas e teste do badge comprado. A 
 | O quê | Arquivo |
 |---|---|
 | Este mapa | docs/estado-do-projeto.md |
+| Plano do primeiro protótipo (proposta) | docs/prototipo-plano.md |
+| Como retomar na máquina local | docs/handoff.md |
 | Todas as pesquisas por tema | docs/pesquisa-acumulada.md |
 | Decisões do fundador, linha do tempo técnica | docs/concept.md |
 | Sebrae: como entrar e o que oferece | docs/sebrae.md |
