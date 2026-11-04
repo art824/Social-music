@@ -1,0 +1,61 @@
+COMO CONTINUAR O PROJETO NO SEU COMPUTADOR (Windows)
+
+O QUE E "GIT CLONE"
+O projeto esta guardado num site chamado GitHub. "git clone" e um comando que baixa uma copia completa dele para uma pasta no seu computador.
+
+
+PASSO 1 - ESCOLHA ONDE VAI FICAR
+Voce NAO precisa criar a pasta do projeto. O comando cria sozinho uma pasta chamada "Social-music".
+Escolha so uma pasta que ja exista para ela ficar dentro. Exemplo: Documentos.
+Atencao: se ja existir ali uma pasta chamada Social-music, o comando da erro. Mude o nome da antiga ou escolha outro lugar.
+
+
+PASSO 2 - ABRA A JANELA PRETA (terminal) NESSA PASTA
+1. Abra a pasta (por exemplo Documentos) no Explorador de Arquivos.
+2. Clique na barra de endereco la em cima (onde aparece o caminho).
+3. Apague o texto, digite  cmd  e aperte Enter.
+Vai abrir uma janela preta ja dentro dessa pasta.
+
+
+PASSO 3 - BAIXE O PROJETO
+Na janela preta, cole esta linha e aperte Enter:
+
+git clone https://github.com/art824/Social-music.git
+
+- Se aparecer "git nao e reconhecido": instale o Git em git-scm.com (instale deixando tudo no padrao) e repita o passo 3.
+- Se pedir login: entre com a conta do GitHub (art824).
+- Quando acabar, vai existir a pasta  Documentos\Social-music  (ou a pasta que voce escolheu).
+
+Alternativa sem janela preta: abra https://github.com/art824/Social-music no navegador, clique no botao verde "Code" e depois em "Download ZIP". Extraia o zip. Essa forma nao guarda o historico, entao a sessao local nao consegue enviar mudancas de volta ao GitHub.
+
+
+PASSO 4 - ABRA O CLAUDE CODE DENTRO DO PROJETO
+Na mesma janela preta, digite uma linha de cada vez, apertando Enter:
+
+cd Social-music
+claude
+
+O arquivo CLAUDE.md e lido sozinho e manda a sessao ler o estado do projeto.
+
+
+PASSO 5 - COLE ESTA MENSAGEM PARA ELA
+
+Estamos retomando o projeto Social Music vindo de uma sessao na nuvem. Leia CLAUDE.md, depois 00-comece-aqui/estado-do-projeto.md, depois 00-comece-aqui/handoff.md e 2-produto-e-prototipo/prototipo-plano.md. Resuma em 10 linhas onde estamos, o que esta decidido, o que esta em aberto e qual e o proximo passo. Nao construa nada que eu nao pedir.
+
+
+O QUE VAI APARECER NO EXPLORADOR (dentro da pasta Social-music)
+00-comece-aqui          estado do projeto, mapa visual, decisoes
+1-ideia-e-mercado       ideia, comprador, preco, concorrentes
+2-produto-e-prototipo   plano do prototipo, hardware, 3D
+3-legal-e-dinheiro      certificacao, EUA contra Brasil, crowdfunding
+4-marketing-e-redes     construir em publico, idioma, nome
+5-brasil-e-apoio        Sebrae, Living Hub
+
+Arquivos que voce abre com duplo clique, sem programa especial:
+- 00-comece-aqui\mapa-visual.html  (mapa visual das trilhas, abre no navegador)
+- 1-ideia-e-mercado\ventures\social-music\relatorio-visual.html  (relatorio visual)
+- Os arquivos .md abrem no Bloco de Notas (texto simples, so sem formatacao bonita).
+
+
+GUARDE FORA DO PROJETO
+O PDF do registro do conceito de 14/10/2026 nao esta no repositorio. Se voce ainda o tem, mande por e-mail para voce mesmo.

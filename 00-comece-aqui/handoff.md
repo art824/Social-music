@@ -1,5 +1,7 @@
 # Handoff da sessão na nuvem para a máquina local (04/11/2026)
 
+Versão passo a passo para leigos, em texto simples: 00-comece-aqui/COMO-RETOMAR.txt
+
 A conversa da nuvem não pode ser levada. O que continua é o repositório. Tudo o que importa está nos arquivos abaixo.
 
 ## Como retomar localmente
