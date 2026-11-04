@@ -1,6 +1,6 @@
 # Estado do projeto (LEIA ISTO PRIMEIRO)
 
-Última atualização: 03/11/2026. Mapa de uma página de tudo o que foi falado. Se a conversa for resumida ou perdida, comece por aqui. Detalhes: docs/pesquisa-acumulada.md, docs/concept.md, docs/sebrae.md, ventures/social-music/.
+Última atualização: 03/11/2026. Mapa de uma página de tudo o que foi falado. Se a conversa for resumida ou perdida, comece por aqui. Detalhes: arquivos pesquisa-*.md dentro de cada pasta de tema, 00-comece-aqui/concept.md, 5-brasil-e-apoio/sebrae.md, 1-ideia-e-mercado/ventures/social-music/.
 
 ## O projeto em uma frase
 Um badge vestível e minimalista que mostra a capa do álbum que a pessoa está ouvindo (ou o favorito), para quem tem orgulho do próprio gosto musical. Fundador: estudante brasileiro, na França até janeiro de 2027; menos de €500, 5 a 10 h por semana. Estágio: ideia, 0 entrevistas, 0 protótipo funcional.
@@ -28,11 +28,11 @@ Seguir só com testes baratos e com data para parar: **31/03/2027**. Seguir se, 
 **Dinheiro e crowdfunding:** plataforma (Kickstarter não aceita residente no Brasil; Indiegogo não confirmado); onde o fundador residirá em abril/2027; quem paga os ~US$18 mil.
 **Legal:** direito de uso das capas (termos do iTunes); nome e marca ("Social Music" provavelmente genérico, não verificado); MEI serve para hardware importado?
 **Marketing:** nome e perfil social antes de montar audiência; música em vídeos; meta de lista de e-mail com depósito.
-**Brasil:** fundador vai falar direto com o Sebrae (WhatsApp ou formulário; 0800 pode não funcionar do exterior). A chamada Startups Mineiras foi descartada por ele; não desenvolver. Living Hub (Sebrae MG, P7 Criativo, Centro de BH): ver docs/sebrae.md; custo e elegibilidade de estudante sem empresa não estão publicados, perguntar por e-mail. Abrir MEI agora ou em janeiro (custo do DAS mensal).
-**Organização:** o fundador não gostou do Notion (03/11/2026): queria ver visualmente as trilhas e como se misturam, para focar numa por vez. Resposta: docs/mapa-visual.html (publicado como artefato privado), um mapa de 8 trilhas no tempo com foco em uma trilha. O Notion criado fica sem uso, a menos que ele peça. O repositório continua sendo a base principal; ao mudar uma decisão aqui, atualizar o mapa.
+**Brasil:** fundador vai falar direto com o Sebrae (WhatsApp ou formulário; 0800 pode não funcionar do exterior). A chamada Startups Mineiras foi descartada por ele; não desenvolver. Living Hub (Sebrae MG, P7 Criativo, Centro de BH): ver 5-brasil-e-apoio/sebrae.md; custo e elegibilidade de estudante sem empresa não estão publicados, perguntar por e-mail. Abrir MEI agora ou em janeiro (custo do DAS mensal).
+**Organização:** o fundador não gostou do Notion (03/11/2026): queria ver visualmente as trilhas e como se misturam, para focar numa por vez. Resposta: 00-comece-aqui/mapa-visual.html (publicado como artefato privado), um mapa de 8 trilhas no tempo com foco em uma trilha. O Notion criado fica sem uso, a menos que ele peça. O repositório continua sendo a base principal; ao mudar uma decisão aqui, atualizar o mapa.
 
 ## Estacionado (não discutir agora)
-- Certificação FCC/Anatel, país de venda, empresa e crowdfunding. Estudo pronto em ventures/social-music/07-eua-vs-brasil/. O fundador deixou de lado em 04/11/2026: só vale se o negócio der muito certo. Risco registrado: a certificação custa mais que o orçamento de €500 e pode decidir se o negócio existe.
+- Certificação FCC/Anatel, país de venda, empresa e crowdfunding. Estudo pronto em 3-legal-e-dinheiro/estudo-eua-vs-brasil/. O fundador deixou de lado em 04/11/2026: só vale se o negócio der muito certo. Risco registrado: a certificação custa mais que o orçamento de €500 e pode decidir se o negócio existe.
 - Escolha de placa e compra de hardware; escolha entre alternativas de display.
 - Modelo 3D com medidas reais; firmware; app.
 - Investidores, Anjos do Brasil, FINEP e outros apoios públicos.
@@ -40,7 +40,7 @@ Seguir só com testes baratos e com data para parar: **31/03/2027**. Seguir se, 
 - Versão para o Brasil (Anatel, importação).
 
 ## Próximos passos (não mais que 3)
-1. Construir o protótipo próprio para uso pessoal e conteúdo. Proposta de etapas, peças e custos em docs/prototipo-plano.md (nada decidido, nada comprado). Pergunta pendente: onde imprimir (impressora ou fablab na França?).
+1. Construir o protótipo próprio para uso pessoal e conteúdo. Proposta de etapas, peças e custos em 2-produto-e-prototipo/prototipo-plano.md (nada decidido, nada comprado). Pergunta pendente: onde imprimir (impressora ou fablab na França?).
 2. Começar a documentar nas redes. Antes: escolher o idioma dos posts e checar o nome (há uma marca "SOCIALMUSIC" na classe 9 em nome de Mix-Tape Partners LLC, só em fonte comercial).
 3. Mensagem direta ao Sebrae (ele envia).
 Cancelados por decisão do fundador: 5 entrevistas e teste do badge comprado. A condição (a) da porta de 31/03/2027 precisa ser reescrita para o protótipo.
@@ -48,17 +48,18 @@ Cancelados por decisão do fundador: 5 entrevistas e teste do badge comprado. A 
 ## Onde está cada coisa
 | O quê | Arquivo |
 |---|---|
-| Este mapa | docs/estado-do-projeto.md |
-| Plano do primeiro protótipo (proposta) | docs/prototipo-plano.md |
-| Como retomar na máquina local | docs/handoff.md |
-| Todas as pesquisas por tema | docs/pesquisa-acumulada.md |
-| Decisões do fundador, linha do tempo técnica | docs/concept.md |
-| Sebrae: como entrar e o que oferece | docs/sebrae.md |
-| Processo "venture" completo (mercado, concorrentes, modelo, revisão) | ventures/social-music/ (comece pelo VENTURE.md) |
-| Mapa visual das trilhas (foco em uma por vez) | docs/mapa-visual.html |
-| Relatório visual em HTML | ventures/social-music/relatorio-visual.html (também publicado como artefato privado) |
-| Teste de capas de álbum | tools/art_coverage.py |
-| Modelo 3D (medidas provisórias) | cad/ |
+| Este mapa | 00-comece-aqui/estado-do-projeto.md |
+| Plano do primeiro protótipo (proposta) | 2-produto-e-prototipo/prototipo-plano.md |
+| Como retomar na máquina local | 00-comece-aqui/handoff.md |
+| Pesquisas por tema | um arquivo pesquisa-*.md dentro de cada pasta de tema (1 a 5) |
+| Índice de cada tema (decidido, em aberto, links) | README.md dentro de cada pasta 1 a 5 |
+| Decisões do fundador, linha do tempo técnica | 00-comece-aqui/concept.md |
+| Sebrae: como entrar e o que oferece | 5-brasil-e-apoio/sebrae.md |
+| Processo "venture" completo (mercado, concorrentes, modelo, revisão) | 1-ideia-e-mercado/ventures/social-music/ (comece pelo VENTURE.md) |
+| Mapa visual das trilhas (foco em uma por vez) | 00-comece-aqui/mapa-visual.html |
+| Relatório visual em HTML | 1-ideia-e-mercado/ventures/social-music/relatorio-visual.html (também publicado como artefato privado) |
+| Teste de capas de álbum | 2-produto-e-prototipo/tools/art_coverage.py |
+| Modelo 3D (medidas provisórias) | 2-produto-e-prototipo/cad/ |
 | Regras de trabalho com o Claude | CLAUDE.md |
 Fora do repositório: o PDF datado de 14/10/2026 foi enviado no chat; o fundador deve guardar uma cópia e mandar por e-mail a si mesmo.
 

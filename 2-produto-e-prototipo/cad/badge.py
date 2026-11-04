@@ -1,6 +1,6 @@
 """Parametric badge enclosure (build123d). All sizes in mm.
 PLACEHOLDER dimensions: replace with the real board, battery and screen sizes once chosen.
-Run: python3 cad/badge.py   -> writes cad/out/badge_front.stl, badge_back.stl, preview.png
+Run: python3 2-produto-e-prototipo/cad/badge.py   -> writes 2-produto-e-prototipo/cad/out/badge_front.stl, badge_back.stl, preview.png
 """
 import os
 from build123d import *

@@ -65,11 +65,11 @@ Sebraetec, SENAI Laboratorio Aberto (BH), MEI registration; investors only after
 
 ## Update 23/10/2026: 3D modeling setup
 - Tools verified working in the Claude sandbox: build123d 0.13 (Python code-based CAD, installed via pip) and OpenSCAD 2021.01 (apt). Live GitHub popularity numbers were not checked (repos outside this session's scope).
-- First model: cad/badge.py (front shell + back plate with two strap slots, button hole, LED hole). All dimensions are PLACEHOLDERS; the 28 x 33 mm window is derived from a 1.69" 240x280 panel diagonal (verify on datasheet). Outputs: cad/out/*.stl and preview.png. Not yet test-fitted to any real board.
+- First model: 2-produto-e-prototipo/cad/badge.py (front shell + back plate with two strap slots, button hole, LED hole). All dimensions are PLACEHOLDERS; the 28 x 33 mm window is derived from a 1.69" 240x280 panel diagonal (verify on datasheet). Outputs: 2-produto-e-prototipo/cad/out/*.stl and preview.png. Not yet test-fitted to any real board.
 - The grip mechanism is undecided; the strap slots only stand in for it.
 
 ## Update 24/10/2026: 3D software options (no decision yet)
-- Founder asked for software options, not a model; the cad/ files are an unrequested workflow test and can be deleted on request.
+- Founder asked for software options, not a model; the 2-produto-e-prototipo/cad/ files are an unrequested workflow test and can be deleted on request.
 - Runnable by Claude in the cloud sandbox (verified): build123d, OpenSCAD. Installable but not run: CadQuery. In the sandbox package list but untested: SolveSpace, PrusaSlicer, Blender. FreeCAD was not in the sandbox package list.
 - Only build123d exports STEP (editable solids in FreeCAD/Fusion/Onshape); OpenSCAD exports meshes only.
 - Curated lists found: mlightcad/awesome-cad, ad-si/awesome-3d-printing, cmccomb/awesome-cad-cae, elasticdotventures/awesome-openscad (read via search snippets only).
@@ -77,10 +77,10 @@ Sebraetec, SENAI Laboratorio Aberto (BH), MEI registration; investors only after
 - Open: founder's own computer/OS, 3D printer access, how much he wants to edit himself.
 
 ## Update 24/10/2026: modeling decision
-Founder: Claude does the practical 3D modeling; founder does not need hands-on access. Claude uses build123d (already installed in the sandbox) and keeps the cad/ placeholder files. Real models wait until a display and board are chosen.
+Founder: Claude does the practical 3D modeling; founder does not need hands-on access. Claude uses build123d (already installed in the sandbox) and keeps the 2-produto-e-prototipo/cad/ placeholder files. Real models wait until a display and board are chosen.
 
 ## Update 03/11/2026: venture plugin run
-Full venture process (plugin "venture" by Parsa, followed from its real source, MIT) is in `ventures/social-music/`. Verdict: PERSEVERE restructured — wear-test with a cheap manual badge first, then interviews, then a US$79 pre-sale with ≥US$20 deposits, plus a route-to-market memo; continue only if by 31/03/2027 the three conditions pass, otherwise stop. Model and GTM marked stale. All market numbers are unverified estimates.
+Full venture process (plugin "venture" by Parsa, followed from its real source, MIT) is in `1-ideia-e-mercado/ventures/social-music/`. Verdict: PERSEVERE restructured — wear-test with a cheap manual badge first, then interviews, then a US$79 pre-sale with ≥US$20 deposits, plus a route-to-market memo; continue only if by 31/03/2027 the three conditions pass, otherwise stop. Model and GTM marked stale. All market numbers are unverified estimates.
 
 ## Update 03/11/2026: founder reaction to the venture review
 - Founder idea (not decided): make it a necklace/pendant (Emodo-like, music-focused) instead of a clip. To be tested in the wear test with a cheap badge on a lanyard.

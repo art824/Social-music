@@ -1,5 +1,5 @@
 """Check which album-art sources find cover art for a list of albums. Python 3 standard library only.
-Run:  python3 tools/art_coverage.py
+Run:  python3 2-produto-e-prototipo/tools/art_coverage.py
 """
 import json, time, urllib.parse, urllib.request, urllib.error
 

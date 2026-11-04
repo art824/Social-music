@@ -28,7 +28,7 @@
 <!-- Each module appends its most important findings here (max ~10 bullets per module).
      Format: - [module, YYYY-MM-DD] finding (source, confidence) -->
 
-- [pre-venture, 2026-11-03] Materiais existentes: `docs/concept.md` (decisões e pesquisa até agora), `tools/art_coverage.py` (teste de capas), `cad/` (modelo 3D com medidas provisórias). (repositório, high)
+- [pre-venture, 2026-11-03] Materiais existentes: `00-comece-aqui/concept.md` (decisões e pesquisa até agora), `2-produto-e-prototipo/tools/art_coverage.py` (teste de capas), `2-produto-e-prototipo/cad/` (modelo 3D com medidas provisórias). (repositório, high)
 - [pre-venture, 2026-10-22] Busca de capa por artista + álbum encontrou 17/18 álbuns de mainstream a underground em pelo menos uma fonte gratuita (iTunes, Deezer, Cover Art Archive); "encontrado" = a busca retornou resultado, edição não conferida. (teste próprio, med)
 - [pre-venture, 2026-10-19] Airbuds (app de "o que meus amigos ouvem") tem 15M downloads, 5M MAU, 1,5M DAU e US$10M captados — demanda por exibir gosto musical existe, mas para amigos, não estranhos. (TechCrunch / Music Ally, set/2025, med)
 - [pre-venture, 2026-10-19] Spotify Wrapped 2025: 200M usuários engajados e 500M compartilhamentos nas primeiras 24h. (números da própria Spotify via TechCrunch, dez/2025, med)

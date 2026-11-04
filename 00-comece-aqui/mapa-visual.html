@@ -153,7 +153,7 @@ h1 { font-family: var(--f-display); font-weight: 700; font-size: clamp(28px, 5vw
     <div class="map" id="map"></div>
   </div>
 
-  <p class="foot">Assunto novo não entra na conversa: ele ganha uma posição como "estacionado" na trilha certa. O detalhe de cada ponto está nos arquivos do repositório (docs/estado-do-projeto.md é o mapa de texto).</p>
+  <p class="foot">Assunto novo não entra na conversa: ele ganha uma posição como "estacionado" na trilha certa. O detalhe de cada ponto está nos arquivos do repositório (00-comece-aqui/estado-do-projeto.md é o mapa de texto).</p>
 </div>
 
 <script>
@@ -174,35 +174,35 @@ var LANES = [
   { id: "teste", name: "Teste real", one: "Descobrir se alguém usa e quer pagar, antes de gastar com hardware.",
     needs: [],
     unlocks: [["comprador","as entrevistas mostram quem é o comprador"],["produto","o teste no cordão decide colar ou grampo"],["dinheiro","os depósitos provam se existe demanda"],["hardware","sem o teste passar, nenhuma placa é comprada"]],
-    src: "ventures/social-music/venture-review-2026-11-03.md" },
+    src: "1-ideia-e-mercado/ventures/social-music/venture-review-2026-11-03.md" },
   { id: "comprador", name: "Comprador e preço", one: "Quem compra e por quanto. A resposta decide quase todo o resto.",
     needs: [["teste","entrevistas e uso real dão a evidência"]],
     unlocks: [["produto","preço define tamanho e tela"],["dinheiro","preço define a meta em dólares"],["marketing","define para quem falar"]],
-    src: "ventures/social-music/venture-review-2026-11-03.md" },
+    src: "1-ideia-e-mercado/ventures/social-music/venture-review-2026-11-03.md" },
   { id: "produto", name: "Produto", one: "O que o badge é e faz.",
     needs: [["comprador","tela e tamanho dependem do preço"],["teste","cordão contra grampo vem do teste"]],
     unlocks: [["hardware","só se compra placa depois de o produto estar definido"]],
-    src: "docs/concept.md" },
+    src: "00-comece-aqui/concept.md" },
   { id: "dinheiro", name: "Dinheiro e crowdfunding", one: "Como financiar e onde vender. O valor de ~US$18 mil é estimativa do processo venture.",
     needs: [["teste","depósitos provam demanda"],["brasil","entidade ou MEI para receber"],["comprador","preço define a meta"]],
     unlocks: [["hardware","crowdfunding de hardware exige protótipo funcional"]],
-    src: "docs/pesquisa-acumulada.md" },
+    src: "3-legal-e-dinheiro/pesquisa-legal-e-dinheiro.md" },
   { id: "legal", name: "Legal", one: "Capas de álbum, nome, marca e regras para vender nos EUA.",
     needs: [],
     unlocks: [["marketing","o nome precisa estar checado antes de montar audiência"],["dinheiro","define o responsável FCC nos EUA"]],
-    src: "docs/concept.md" },
+    src: "00-comece-aqui/concept.md" },
   { id: "marketing", name: "Marketing", one: "Construir audiência em público com amigos de marketing.",
     needs: [["legal","nome e marca antes de audiência"],["comprador","para quem falar"]],
     unlocks: [["dinheiro","lista de e-mail com depósito alimenta o crowdfunding"]],
-    src: "docs/concept.md" },
+    src: "00-comece-aqui/concept.md" },
   { id: "brasil", name: "Brasil e Sebrae", one: "Apoio local: Sebrae, Living Hub, MEI.",
     needs: [],
     unlocks: [["dinheiro","define a entidade que recebe e vende"]],
-    src: "docs/sebrae.md" },
+    src: "5-brasil-e-apoio/sebrae.md" },
   { id: "hardware", name: "Hardware e protótipo", one: "Placa, tela, bateria, carcaça. Nada a decidir antes da porta.",
     needs: [["teste","passar na porta primeiro"],["produto","definições fechadas"],["dinheiro","verba"]],
     unlocks: [],
-    src: "docs/pesquisa-acumulada.md" }
+    src: "2-produto-e-prototipo/pesquisa-produto-e-hardware.md" }
 ];
 var NODES = [
   ["teste",0,"decided","Protótipo próprio, usado todo dia e documentado nas redes (tentativas e erros)"],

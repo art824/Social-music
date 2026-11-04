@@ -1,4 +1,4 @@
-"""Quick preview picture of the STL files. Run after badge.py: python3 cad/render.py"""
+"""Quick preview picture of the STL files. Run after badge.py: python3 2-produto-e-prototipo/cad/render.py"""
 import os, numpy as np, trimesh, matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt

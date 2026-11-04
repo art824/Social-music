@@ -1,6 +1,6 @@
 # Plano do primeiro protótipo (PROPOSTA do Claude de 04/11/2026, nada decidido, nada comprado)
 
-Objetivo: uso pessoal e conteúdo para as redes. Não é venda. A certificação de rádio (FCC/Anatel) só importa para vender e está estacionada (ver ventures/social-music/07-eua-vs-brasil/).
+Objetivo: uso pessoal e conteúdo para as redes. Não é venda. A certificação de rádio (FCC/Anatel) só importa para vender e está estacionada (ver 3-legal-e-dinheiro/estudo-eua-vs-brasil/).
 
 ## Ordem proposta
 Etapa 1 (semanas 1 a 3): placa de desenvolvimento com tela, ligada ao computador por USB, sem caixa. Meta única: tocar música no iPhone e a capa aparecer na tela. O Claude escreve o firmware (o programa que roda dentro da placa); o fundador grava na placa por um comando.
